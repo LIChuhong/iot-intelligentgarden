@@ -1,0 +1,209 @@
+<template>
+	<div style="overflow:hidden;position: relative;">
+		<div style="overflow: hidden;padding: 8px;position: fixed;z-index: 2;width: 100%;background: #dcdee2;">
+
+			<Input search enter-button placeholder="请输入关键字" @on-search="findRtuList" style="width: 15.625rem;" />
+		</div>
+		<!-- <div style="position: absolute;top:3.125rem;bottom: 6.25rem;width: 100%;"> -->
+		<!-- <div style="overflow: hidden;padding: 8px;position:absolute;width: 100%;height: 100%;"> -->
+		<Table style="margin: 3.125rem 0;" size="small" border :columns="rtuListColumns" :data="rtuListData" :loading="tableLoading">
+			<template slot-scope="{ row }" slot="rtuTypeImgUrl">
+				<div style="height:2.8125rem ;display: flex;justify-content: center; align-items: center">
+					<img :src="row.rtuTypeImgUrl" :alt="row.rtuNumber" style="max-height: 2.8125rem;max-width:2.8125rem;" />
+				</div>
+			</template>
+			<template slot-scope="{ row }" slot="nameAndserialNum">
+				<p>{{ row.rtuNumber }}</p>
+				<p>({{ row.rtuName }})</p>
+			</template>
+			<template slot-scope="{ row }" slot="rtuState">
+				<Badge v-show="row.networkState == 1" status="success" text="在线" />
+				<Badge v-show="row.networkState == 0" status="default" text="离线" />
+			</template>
+			<template slot-scope="{ row, index }" slot="action">
+				<Button size="small" type="text" @click="show_rtu_info(row,index)" style="font-size: 12px;"><a>详情</a></Button>
+
+			</template>
+		</Table>
+		<!-- </div> -->
+		<div style="overflow: hidden;padding:0.625rem 0.625rem;position: fixed;bottom:3.125rem;width: 100%;background: #dcdee2;">
+			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+		</div>
+		<!-- </div> -->
+
+		<Modal v-model="showRtuInfo" :title="rtuModalTitle" footer-hide fullscreen @on-cancel="cancel">
+			<!-- <rtu-form :rtu-number="rtuNumber" v-if="showRtuInfo">修改</rtu-form> -->
+			<!-- <template slot="close"> -->
+				<Icon slot="close" type="md-close"  size="30"/>
+			<!-- </template> -->
+			<iar-info v-if="rtuTypeTag == 'IA_R'" :rtu-number="rtuNumber"></iar-info>
+			<iasf-info v-if="rtuTypeTag == 'IA_SF'" :rtu-number="rtuNumber"></iasf-info>
+			<iaw-info v-if="rtuTypeTag == 'IA_W'" :rtu-number="rtuNumber"></iaw-info>
+			<iat-info v-if="rtuTypeTag == 'IA_T'" :rtu-number="rtuNumber"></iat-info>
+			<default-rtu-info v-if="rtuTypeTag == 'default_rtu'" :rtu-number="rtuNumber"></default-rtu-info>
+		</Modal>
+
+	</div>
+</template>
+
+<script>
+	import {
+		getRtuList,
+		isEnableRtu
+	} from '@/api/rtu'
+	import {
+		rtuListColumns1
+	} from '@/data/columns.js'
+	import IarInfo from './component/iar-info.vue'
+	import IasfInfo from './component/iasf-info.vue'
+	import IawInfo from './component/iaw-info.vue'
+	import IatInfo from './component/iat-info.vue'
+	import DefaultRtuInfo from './component/default-rtu-info.vue'
+	// import RtuForm from '../component/rtu-form.vue'
+	// import CopyRtu from '../component/copy-rtu.vue'
+	export default {
+		name: 'm_rtu',
+		components: {
+			IarInfo,
+			IasfInfo,
+			IawInfo,
+			IatInfo,
+			DefaultRtuInfo
+
+		},
+		data() {
+			return {
+				rtuTypeTag: '',
+				rtuModalTitle: '设备详情',
+				tableLoading: false,
+				copyRtuTitle: '',
+				showCopyform: false,
+				showRtuInfo: false,
+				rtuNumber: null,
+				rtuListColumns: rtuListColumns1,
+				rtuListData: [],
+				searchKey: '',
+				maxId: 0,
+				pageSize: 10,
+				prevId: [0],
+				keyField: 0,
+				keyFieList: [{
+						id: 0,
+						title: '机器名称'
+					},
+					{
+						id: 1,
+						title: '机器编号'
+					}
+				],
+			}
+		},
+		methods: {
+			detectionRtu(row, index) {
+
+			},
+			isEnableRtuMethods(item) {
+				item.switchLoading = true
+				isEnableRtu(item.rtuNumber, item.isEnable).then(res => {
+					const data = res.data
+					item.switchLoading = false
+					if (data.success == 1) {
+						if (item.isEnable) {
+							this.$Message.success(item.rtuNumber + '机器启用成功')
+						} else {
+							this.$Message.success(item.rtuNumber + '机器禁用成功')
+						}
+					} else {
+						this.$Message.error(item.rtuNumber + data.errorMessage)
+					}
+				}).catch(error => {
+					item.switchLoading = false
+					alert(error)
+				})
+			},
+
+			show_rtu_info(row, index) {
+				// console.log(row)
+				if (row.rtuTypeTag == 'WS_G' || row.rtuTypeTag == 'WS_N') {
+					this.rtuTypeTag = 'IA_R'
+				} else if (row.rtuTypeTag == 'SF_G' || row.rtuTypeTag == 'SF_N') {
+					this.rtuTypeTag = 'IA_SF'
+				} else if (row.rtuTypeTag == 'W_G' || row.rtuTypeTag == 'W_N') {
+					this.rtuTypeTag = 'IA_W'
+				} else if (row.rtuTypeTag == 'T_G' || row.rtuTypeTag == 'T_N') {
+					this.rtuTypeTag = 'IA_T'
+				} else {
+					this.rtuTypeTag = 'default_rtu'
+				}
+				this.rtuModalTitle = row.rtuNumber + '-' + row.rtuTypeName
+				this.rtuNumber = row.rtuNumber
+				this.showRtuInfo = true
+			},
+			getRtuList() {
+				this.tableLoading = true
+
+				getRtuList(this.keyField, this.searchKey, this.maxId, this.pageSize).then(res => {
+					const data = res.data
+					// console.log(data)
+					this.tableLoading = false
+					if (data.success == 1) {
+						// console.log(22)
+						this.rtuListData = data.iaRtuList.map(item => {
+							item.checkLoading = false
+							item.switchLoading = false
+							if (this.maxId < item.id) {
+								this.maxId = item.id
+							}
+							return item
+						})
+						//this.rtuList = data.rtuList
+					} else {
+						this.$Message.error(data.errorMessage)
+					}
+				}).catch(error => {
+					this.tableLoading = false
+					//this.mRtuListLoading = false
+					alert(error)
+				})
+			},
+
+			nextPage() {
+				if (this.rtuListData.length < this.pageSize) {
+					this.$Message.warning('这是最后一页');
+				} else {
+					this.prevId.push(this.maxId)
+					this.getRtuList()
+				}
+
+			},
+			prevPage() {
+				if (this.prevId.length > 1) {
+					this.prevId.pop()
+					this.maxId = this.prevId[this.prevId.length - 1]
+					this.getRtuList()
+				} else {
+					this.$Message.warning('这是第一页');
+				}
+
+			},
+			findRtuList(searchKey) {
+				//查找机器列表
+				this.searchKey = searchKey
+				this.maxId = 0
+				this.prevId = [0]
+				this.getRtuList()
+			},
+			cancel() {
+				this.rtuTypeTag = ''
+			}
+		},
+		created() {
+			// this.$route.meta.keepAlive = true
+			this.getRtuList()
+		},
+	}
+</script>
+
+<style>
+</style>
