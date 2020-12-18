@@ -7,7 +7,9 @@
 			<img :src="iaRtu.rtuTypeImgUrl" style="height:100%;" />
 			<div style="position: absolute;right:1.875rem;bottom:0">
 				<Icon @click="showVideo('live')" :type="' iconfont' + ' ' +  videoIcon" size="40" color="red"></Icon>
-				<!-- <span v-show="videoIcon != ''" @click="showVideo('rec')">回看</span> -->
+			</div>
+			<div style="position: absolute;left:1.25rem;top:0">
+				<Icon :type="iaRtu.signal" size="40" color="#5cadff" />
 			</div>
 		</div>
 		<div style="margin: 1.25rem 0;">
@@ -23,7 +25,7 @@
 			<div>{{tips}}</div>
 		</Spin>
 		<Modal v-model="showVideoInfo" title="视频详情" footer-hide fullscreen>
-			<Icon slot="close" type="md-close"  size="30"/>
+			<Icon slot="close" type="md-close" size="30" />
 			<video-info :video-info="videoInfo" v-if="showVideoInfo"></video-info>
 		</Modal>
 	</div>
@@ -34,6 +36,9 @@
 		getRtu,
 		getRtuData,
 	} from '@/api/rtu.js'
+	import {
+		getSignal
+	} from '@/libs/tools.js'
 
 	import {
 		getVideo
@@ -48,7 +53,9 @@
 			return {
 				tips: '检测中...',
 				btnValue: false,
-				iaRtu: {},
+				iaRtu: {
+					signal: ''
+				},
 				parameterDataList: [],
 				showSpin: false,
 				parameterIndex: null,
@@ -62,7 +69,7 @@
 		},
 		methods: {
 			showVideo(suffix) {
-				if(this.videoInfo.brandTag == 'YSY'){
+				if (this.videoInfo.brandTag == 'YSY') {
 					this.videoInfo.suffix = suffix
 					this.showVideoInfo = true
 				}
@@ -77,9 +84,9 @@
 							// console.log(data)
 							this.iaRtu = data.iaRtu
 							var iaRtu = data.iaRtu
-							if(iaRtu.videoId > 0){
+							if (iaRtu.videoId > 0) {
 								var video = iaRtu.video
-								if(video){
+								if (video) {
 									this.videoInfo = video
 									if (video.videoType == 1) {
 										this.videoIcon = 'icon-qj1'
@@ -87,9 +94,9 @@
 									if (video.videoType == 0) {
 										this.videoIcon = 'icon-qj0'
 									}
-									if(iaRtu.presetPoint != null){
+									if (iaRtu.presetPoint != null) {
 										this.videoInfo.presetPoint = 0
-									}else{
+									} else {
 										this.videoInfo.presetPoint = 1
 									}
 									this.videoInfo.rtuNumber = this.rtuNumber
@@ -109,7 +116,7 @@
 				}
 
 			},
-			getVideoInfo(id,presetPoint) {
+			getVideoInfo(id, presetPoint) {
 				getVideo(id).then(res => {
 					const data = res.data
 					if (data.success == 1) {
@@ -121,9 +128,9 @@
 						if (video.videoType == 1) {
 							this.videoIcon = 'icon-qj1'
 						}
-						if(presetPoint != null){
+						if (presetPoint != null) {
 							this.videoInfo.presetPoint = 0
-						}else{
+						} else {
 							this.videoInfo.presetPoint = 1
 						}
 						this.videoInfo.rtuNumber = this.rtuNumber
@@ -143,6 +150,11 @@
 							const rtuData = data.rtuData
 							if (rtuData.parameterDataList != null && rtuData.parameterDataList) {
 								this.parameterDataList = rtuData.parameterDataList.map(item => {
+									if (item.parameterId == 4 && item.parameterIndex == 0) {
+										if (this.iaRtu.rtuCharacteristic == 0) {
+											this.iaRtu.signal = getSignal(item.value)
+										}
+									}
 									item.iconColor = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' +
 										Math.floor(Math.random() * 255) + ')'
 

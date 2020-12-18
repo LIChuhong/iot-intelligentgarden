@@ -7,6 +7,9 @@
 				<Icon @click="showVideo('live')" :type="' iconfont' + ' ' +  videoIcon" size="40" color="red"></Icon>
 				<!-- <span v-show="videoIcon != ''" @click="showVideo('rec')">回看</span> -->
 			</div>
+			<div style="position: absolute;left:1.25rem;top:0">
+				<Icon :type="iaRtu.signal" size="40" color="#5cadff"/>
+			</div>
 		</div>
 		<div style="display: flex;margin: 1.25rem 0;font-size: 1rem;">
 			<p style="width: 50%;text-align: center;">状态:
@@ -38,7 +41,7 @@
 		<Modal v-model="showWaterRecord" :title="rtuNumber+'-浇水记录'" footer-hide fullscreen>
 			<Icon slot="close" type="md-close"  size="30"/>
 			<!-- <video-info :video-info="videoInfo" v-if="showVideoInfo"></video-info> -->
-			<water-record v-show="showWaterRecord" :rtu-number="rtuNumber"></water-record>
+			<water-record v-if="showWaterRecord" :rtu-number="rtuNumber"></water-record>
 		</Modal>
 	</div>
 </template>
@@ -71,7 +74,9 @@
 				showWaterRecord:false,
 				refCas: [],
 				tips: '检测中...',
-				iaRtu: {},
+				iaRtu: {
+					signal:''
+				},
 				parameterDataList: [],
 				showSpin: false,
 				iat: {
@@ -300,6 +305,11 @@
 							if (rtuData.parameterDataList != null && rtuData.parameterDataList) {
 
 								rtuData.parameterDataList.map(item => {
+									if(item.parameterId == 4 && item.parameterIndex == 0){
+										if(this.iaRtu.rtuCharacteristic == 0){
+											this.iaRtu.signal = getSignal(item.value)
+										}
+									}
 									if (item.parameterId == 25) {
 										this.setStateValue(item.value)
 										this.iat.show = true

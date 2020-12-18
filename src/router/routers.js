@@ -64,7 +64,8 @@ export default [{
 				name: 'new_org',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '新建组织'
+					title: '新建组织',
+					 keepAlive: true
 				},
 				component: resolve => require(['@/view/page/org-management/new-org/new-org.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/org/newOrg/newOrg.vue')
@@ -85,7 +86,8 @@ export default [{
 				name: 'm_new_org',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '新建组织'
+					title: '新建组织',
+					 keepAlive: true
 				},
 				component: resolve => require(['@/view/m-page/m-org/m-new-org.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -116,7 +118,8 @@ export default [{
 				name: 'new_rtu',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '新建设备'
+					title: '新建设备',
+					 keepAlive: true
 				},
 				component: resolve => require(['@/view/page/rtu-management/new-rtu/new-rtu.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/rtu/newrtu/newrtu.vue')
@@ -148,7 +151,8 @@ export default [{
 				name: 'add_user',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '添加用户'
+					title: '添加用户',
+					 keepAlive: true
 				},
 				component: resolve => require(['@/view/page/user-management/add-user/add-user.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/user/addUser/addUser.vue')
@@ -189,8 +193,10 @@ export default [{
 				name: 'new_farm',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '新建农场'
+					title: '新建农场',
+					 keepAlive: true
 				},
+				
 				component: resolve => require(['@/view/page/farm-management/new-farm/new-farm.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
 			},
@@ -199,7 +205,7 @@ export default [{
 				name: 'farm_list',
 				meta: {
 					icon: ' iconfont icon-menum',
-					title: '农场列表'
+					title: '农场列表',
 				},
 				component: resolve => require(['@/view/page/farm-management/farm-list/farm-list.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/menuManagement/menuManagement.vue')
@@ -221,7 +227,8 @@ export default [{
 				name: 'add_strategy',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '添加策略'
+					title: '添加策略',
+					 keepAlive: true
 				},
 				component: resolve => require(['@/view/page/strategy-management/add-strategy/add-strategy.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -241,7 +248,8 @@ export default [{
 					name: 'add_link',
 					meta: {
 						icon: ' iconfont icon-add',
-						title: '添加联动'
+						title: '添加联动',
+						keepAlive: true
 					},
 					component: resolve => require(['@/view/page/strategy-management/add-link/add-link.vue'], resolve)
 					//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -261,7 +269,8 @@ export default [{
 					name: 'add_timing',
 					meta: {
 						icon: ' iconfont icon-add',
-						title: '添加定时'
+						title: '添加定时',
+						keepAlive: true
 					},
 					component: resolve => require(['@/view/page/strategy-management/add-timing/add-timing.vue'], resolve)
 					//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -281,7 +290,8 @@ export default [{
 					name: 'binding_link',
 					meta: {
 						icon: ' iconfont icon-add',
-						title: '绑定联动'
+						title: '绑定联动',
+						keepAlive: true
 					},
 					component: resolve => require(['@/view/page/strategy-management/binding-link/binding-link.vue'], resolve)
 					//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -313,7 +323,8 @@ export default [{
 				name: 'add_warn',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '添加告警'
+					title: '添加告警',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/warn-management/add-warn/add-warn.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -333,7 +344,8 @@ export default [{
 				name: 'parameters_associate',
 				meta: {
 					icon: ' iconfont icon-menum',
-					title: '参数关联'
+					title: '参数关联',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/warn-management/parameters-associate/parameters-associate.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/menuManagement/menuManagement.vue')
@@ -365,7 +377,8 @@ export default [{
 				name: 'add_plot',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '添加地块'
+					title: '添加地块',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/plot-management/add-plot/add-plot.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -385,7 +398,8 @@ export default [{
 				name: 'add_data',
 				meta: {
 					icon: ' iconfont icon-menum',
-					title: '添加数据'
+					title: '添加数据',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/plot-management/add-data/add-data.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/menuManagement/menuManagement.vue')
@@ -405,7 +419,8 @@ export default [{
 				name: 'plot_planning',
 				meta: {
 					icon: ' iconfont icon-menum',
-					title: '地块规划'
+					title: '地块规划',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/plot-management/plot-planning/plot-planning.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/menuManagement/menuManagement.vue')
@@ -427,7 +442,8 @@ export default [{
 				name: 'add_brand',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '添加品牌'
+					title: '添加品牌',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/video-management/add-brand/add-brand.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')
@@ -447,7 +463,8 @@ export default [{
 				name: 'add_video',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '添加视频'
+					title: '添加视频',
+					keepAlive: true
 				},
 				component: resolve => require(['@/view/page/video-management/add-video/add-video.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/menuManagement/menuManagement.vue')
@@ -521,7 +538,7 @@ export default [{
 				name: 'm_farm',
 				meta: {
 					icon: ' iconfont icon-add',
-					title: '园林'
+					title: '园区'
 				},
 				component: resolve => require(['@/view/m-page/m-farm/m-farm.vue'], resolve)
 				//component: () => import('@/view/intelligentgarden/setting/addMenu/addMenu.vue')

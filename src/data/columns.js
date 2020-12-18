@@ -39,7 +39,7 @@ export const rtuListColumns = [{ //设备列表
 		title: 'ID',
 		key: 'id',
 		align: 'center',
-		width: 100
+		width: 70
 
 	},
 	{
@@ -54,7 +54,7 @@ export const rtuListColumns = [{ //设备列表
 		title: '编号(名称)/序列号',
 		slot: 'nameAndserialNum',
 		align: 'center',
-		width: 250
+		// width: 250
 
 
 	},
@@ -62,14 +62,14 @@ export const rtuListColumns = [{ //设备列表
 		title: '类型',
 		key: 'rtuTypeName',
 		align: 'center',
-		width: 150
+		width: 120
 
 	},
 	{
 		title: '所属组织',
 		key: 'orgName',
 		align: 'center',
-		//width: 150
+		width: 150
 
 	},
 	{
@@ -87,34 +87,43 @@ export const rtuListColumns1 = [ //手机端设备列表
 		title: '设备图',
 		slot: 'rtuTypeImgUrl',
 		align: 'center',
-		//width: '100'
+		width: 80
 		// width: 100
 
 	},
 	{
-		title: '编号(名称)',
-		slot: 'nameAndserialNum',
+		title: '编号',
+		key: 'rtuNumber',
 		align: 'center',
-		// width: 250
+		width: 80
 
 
 	},
+	{
+		title: '名称',
+		key: 'rtuName',
+		align: 'center',
+		// width: 250
+	
+	
+	},
+	
 
 	{
 		title: '状态',
 		slot: 'rtuState',
 		align: 'center',
-		//width: 150
+		width: 80
 
 	},
-	{
-		title: '操作',
-		slot: 'action',
-		align: 'center',
-		// width: 320
-
-
-	}
+// 	{
+// 		title: '操作',
+// 		slot: 'action',
+// 		align: 'center',
+// 		// width: 320
+// 
+// 
+// 	}
 ]
 
 export const userListColumns = [{ //用户列表

@@ -121,7 +121,7 @@
 				strategyForm: {
 					strategyName: '',
 					belongOrgId: '',
-					isMustAllPass: true,
+					isMustAllPass: false,
 					exeMode: 0,
 					switchsGroupStrategyList: [{
 						sortIndex: 0,

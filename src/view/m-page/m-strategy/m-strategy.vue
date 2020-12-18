@@ -18,11 +18,11 @@
 									<span style="float: right;">类型:{{item.timerType == 0?'日':item.timerType == 1?'星期':'月'}}</span>
 								</div>
 								<div style="overflow: hidden;padding: 0 1rem;">
-									<span>执行时间:{{item.startTimer}}</span>
+									<span>执行时间:<span style="color: #2d8cf0;">{{item.startTimer}}</span></span>
 									<span style="float: right;">周期:{{item.timerInterval}}</span>
 								</div>
 								<div style="overflow: hidden;padding: 0 1rem;">
-									<span>策略:{{item.switchsStrategyName}}</span>
+									<span>策略:<span style="color: #2d8cf0;">{{item.switchsStrategyName}}</span></span>
 									<span style="float: right;">所属组织:{{item.orgName}}</span>
 								</div>
 							</template>
@@ -34,11 +34,11 @@
 						</ListItemMeta>
 						<template slot="action">
 							<div style="text-align: right;padding: 0 1rem;">
-								<Button icon="ios-create-outline" type="primary" size="small" style="margin-right:0.5rem" @click="editorTiming(item)"></Button>
+								<Button size="small" icon="ios-create-outline" type="primary" style="margin-right:1rem" @click="editorTiming(item)"></Button>
 								<Poptip placement="right" :transfer="true" confirm title="你确定删除该定时吗?" @on-ok="delTiming(item,index)">
-									<Button icon="ios-trash" type="error" size="small" style="margin-right: 0.5rem"></Button>
+									<Button size="small" icon="ios-trash" type="error" style="margin-right: 1rem"></Button>
 								</Poptip>
-								<i-switch :loading="item.switchLoading" size="small" v-model="item.enable" @on-change="setIsEnbleTiming(item)"></i-switch>
+								<i-switch size="small" :loading="item.switchLoading"  v-model="item.enable" @on-change="setIsEnbleTiming(item)"></i-switch>
 							</div>
 
 						</template>

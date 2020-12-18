@@ -469,6 +469,8 @@
 							// this.rtuImgList = iaRtuList
 							this.mapName = map.mapName
 							this.refreshDataInv = map.refreshDataInv
+							this.belongOrgId = map.belongOrgId
+							this.belongOrgName = map.orgName
 							// this.checkRtuData = iaRtuList
 							// console.log(this.rtuImgList)
 

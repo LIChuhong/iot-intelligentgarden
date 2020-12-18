@@ -236,13 +236,14 @@
 		methods: {
 			showRemTime1() {
 				//倒计时
-				if (this.refreshDataInv <= 0) {
+				if (this.refreshDataInv == 0) {
 					clearInterval(this.timer1);
 					this.getMapDataMethod()
 					// clearInterval(this.timer1);
-				} else {
+				} else if(this.refreshDataInv < 0){
+					clearInterval(this.timer1);
+				}else{
 					this.refreshDataInv--;
-
 				}
 			},
 			getMapDataMethod() {

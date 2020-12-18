@@ -24,7 +24,7 @@
 					<span v-if="!row.checkLoading">检测在线</span>
 					<span v-else>检测中....</span>
 				</Button>
-				<i-switch :loading="row.switchLoading" v-model="row.isEnable" @on-change="isEnableRtuMethods(row)" />
+				<i-switch :loading="row.switchLoading" v-model="row.enable" @on-change="isEnableRtuMethods(row)" />
 				<Button size="small" type="info" @click="copyRtu(row)">复制机器</Button>
 			</template>
 		</Table>
@@ -105,11 +105,11 @@
 			},
 			isEnableRtuMethods(item) {
 				item.switchLoading = true
-				isEnableRtu(item.rtuNumber, item.isEnable).then(res => {
+				isEnableRtu(item.rtuNumber, item.enable).then(res => {
 					const data = res.data
 					item.switchLoading = false
 					if (data.success == 1) {
-						if (item.isEnable) {
+						if (item.enable) {
 							this.$Message.success(item.rtuNumber + '机器启用成功')
 						} else {
 							this.$Message.success(item.rtuNumber + '机器禁用成功')
@@ -187,7 +187,7 @@
 				this.getRtuList()
 			},
 		},
-		created() {
+		mounted() {
 			// this.$route.meta.keepAlive = true
 			this.getRtuList()
 		},

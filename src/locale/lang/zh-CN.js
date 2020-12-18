@@ -80,7 +80,7 @@ export default {
 	data_list:'数据列表',
 	add_data:'添加数据',
 	m_user_list:'用户列表',
-	m_farm:'园林管理',
+	m_farm:'园区管理',
 	m_rtu:'设备管理',
 	me:'我',
 	video_management:'视频管理',
