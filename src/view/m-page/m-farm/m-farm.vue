@@ -1,21 +1,20 @@
 <template>
 	<div class="mFarmStyle" style="height: 100%;overflow:hidden;">
-		<div style="position: absolute;top:0;left:0;z-index: 100;width: 100%;text-align: center;color: red">画面名称:{{mapName}}</div>
+		<div style="position: absolute;top:0;left:0;z-index: 100;width: 100%;text-align: center;color: red">{{mapName}}</div>
 		<div ref="maps1" style="height:100%;position: relative;overflow:auto;background: #dcdee2;display: flex;justify-content:center">
 			<!-- <div ref="map1" > -->
 			<div :style="mapStyle" @touchstart="touchstartView" id="mapBgDiv1" ref="mapBgDiv1">
 				<img id="mapBgImg1" ref="mapBgImg1" :src="mapBgImgUrl" style="height: 100%;" draggable="false" />
 				<div v-for="item in rtuImgList" :key="item.rtuNumber" class="drag1" :style="{top:item.heightScale+'%',left:item.widthScale+'%',cursor:'pointer'}"
 				 :title="item.rtuNumber">
-					<p class="rtuImgStyle1">{{item.rtuDesc?item.rtuDesc:item.rtuTypeName}}</p>
+					<p class="rtuImgStyle1">{{item.rtuName?item.rtuName:item.rtuDesc}}</p>
 					<div @click="showVideo(item)" v-show="item.videoId > 0" class="videoTitle1">
 						<Icon :type="' iconfont '+item.videoIcon" />
 					</div>
 					<Poptip :title="item.rtuNumber" @on-popper-show="getRtuDataInfo(item)">
 						<div slot="content">
 							<div style="font-size: 0.75rem;" v-for="(item1 , index) in parameterDataList" :key="index">
-								<Icon :color="item1.iconColor" :type="' iconfont'+ ' ' +item1.iconFont" /><span>{{item1.parameterName}}:<span
-									 :style="{color:item1.iconColor }">{{item1.value}}{{item1.unit}}</span></span></div>
+								<Icon :color="item1.iconColor" :type="' iconfont'+ ' ' +item1.iconFont" /><span>{{item1.parameterName}}:<span :style="{color:item1.iconColor }">{{item1.value}}{{item1.unit}}</span></span></div>
 							<div v-if="iat.show">
 								<p>状态:
 									<Icon :color="iat.iconColor" :type="iat.icon" />
@@ -63,7 +62,7 @@
 
 			<zoom-controller v-model="zoom" :min="60" :max="300" :step="5"></zoom-controller>
 		</div>
-		<Modal title="农场列表" v-model="showMapList" footer-hide>
+		<Modal title="园区列表" v-model="showMapList" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
 			<map-list v-if="showMapList" @get-map-info="getMapInfo"></map-list>
 		</Modal>
@@ -108,6 +107,7 @@
 		rtuTimeDataList
 	} from '@/view/components/js/data.js'
 	import VideoInfo from '@/view/m-page/m-rtu/component/video-info.vue'
+	import RtuTag  from '@/data/rtu-tag.js'
 	export default {
 		name: 'm_farm',
 		components: {
@@ -357,7 +357,7 @@
 				this.iat.show = false
 				this.iaSf.show = false
 				this.iat.rtuNumber = null
-				if (item.rtuTypeTag == 'IA_SF_G' || item.rtuTypeTag == 'IA_SF_N') {
+				if (item.rtuTypeTag == RtuTag.rtuSFTag1 || item.rtuTypeTag == RtuTag.rtuSFTag2) {
 					this.iaSf.rtuNumber = item.rtuNumber
 					this.iaSf.show = true
 				} else {
@@ -370,7 +370,7 @@
 							// this.iaRtu = data.iaRtu
 							var rtuData = data.rtuData
 							if (rtuData.parameterDataList != null && rtuData.parameterDataList) {
-								if (rtuData.rtuTypeTag == 'IA_W_G' || rtuData.rtuTypeTag == 'IA_W_N') {
+								if (rtuData.rtuTypeTag == RtuTag.rtuWTag1 || rtuData.rtuTypeTag == RtuTag.rtuWTag2) {
 									this.iat.rtuNumber = rtuData.rtuNumber
 								}
 								this.showParamDataList(rtuData.rtuTypeTag, rtuData.parameterDataList)
@@ -387,7 +387,7 @@
 				}
 			},
 			showParamDataList(rtuTypeTag, list) {
-				if (rtuTypeTag == 'IA_WS_G' || rtuTypeTag == 'IA_WS_N') {
+				if (rtuTypeTag == RtuTag.rtuWSTag1 || rtuTypeTag == RtuTag.rtuWSTag2) {
 					this.parameterDataList = list.map(item => {
 						if (item.parameterId == 9) {
 							item.iconColor = '#0187fc'
@@ -415,32 +415,8 @@
 						}
 						return item
 					})
-				} else if (rtuTypeTag == 'IA_SF_G' || rtuTypeTag == 'IA_SF_N') {
-					list.map(item => {
-						if (item.parameterId == 20 || item.parameterId == 22 || item.parameterId == 28 || item.parameterId == 35) {
-							item.icon = ' iconfont icon-ic_kqwd'
-							if (item.value == 1) {
-								item.value = '开'
-								item.iconColor = '#00bfff'
-							} else {
-								item.value = '关'
-								item.iconColor = 'red'
-							}
-							this.parameterDataList.push(item)
-						} else if (item.parameterId == 25 || item.parameterId == 27 || item.parameterId == 37 || item.parameterId == 35) {
-							item.icon = ' iconfont icon-ic_kqwd'
-							if (item.value == 1) {
-								item.value = '开'
-								item.iconColor = '#00bfff'
-							} else {
-								item.value = '关'
-								item.iconColor = 'red'
-							}
-							this.parameterDataList.push(item)
-						}
-					})
-
-				} else if (rtuTypeTag == 'IA_T_G' || rtuTypeTag == 'IA_T_N') {
+				
+				} else if (rtuTypeTag == RtuTag.rtuTTag1 || rtuTypeTag == RtuTag.rtuTTag2) {
 					list.map(item => {
 						if (item.parameterId == 18) {
 							item.iconColor = '#0187fc'
@@ -457,7 +433,7 @@
 						}
 						return item
 					})
-				} else if (rtuTypeTag == 'IA_W_G' || rtuTypeTag == 'IA_W_N') {
+				} else if (rtuTypeTag == RtuTag.rtuWTag1 || rtuTypeTag == RtuTag.rtuWTag2) {
 					// var showRtuState = ''
 					list.map(item => {
 						if (item.parameterId == 25) {

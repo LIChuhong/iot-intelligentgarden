@@ -40,6 +40,7 @@ export default {
 	mutations: {
 		setLoginInfo(state,localLoginInfo) {
 			state.localLoginInfo = localLoginInfo
+			setLoginInfoLocalStorage(localLoginInfo.userName,localLoginInfo.password)
 		},
 		setRefreshToken(state,refreshToken) {
 			state.refreshToken = refreshToken
@@ -109,7 +110,7 @@ export default {
 			password,
 			verCode
 		}) {
-			console.log(userName,password)
+			// console.log(userName,password)
 			setTagNavListInLocalstorage([])
 			userName = userName.trim()
 			return new Promise((resolve, reject) => {
@@ -121,7 +122,12 @@ export default {
 					const data = res.data
 					// console.log(data)
 					if(data.success == 1){
-						setLoginInfoLocalStorage(userName,password)
+						var userInfo = {
+							userName:userName,
+							password:password
+						}
+						commit('setLoginInfo', userInfo)
+						// setLoginInfoLocalStorage(userName,password)
 						// commit('setLoginInfo', data.refresh_token)
 						if (data.refresh_token != null && data.refresh_token != '') {
 							// setRefreshTokenLocalstorage(data.refresh_token)
@@ -142,6 +148,7 @@ export default {
 			commit
 		}) {
 			return new Promise((resolve, reject) => {
+				
 				// logout(state.token).then(() => {
 				//   commit('setToken', '')
 				//   commit('setAccess', [])

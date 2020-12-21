@@ -33,7 +33,7 @@
 			</template> -->
 			<!-- <template v-if="addList" slot="footer"> -->
 
-			<div v-if="addList" slot="footer" style="text-align: center;font-size: 1rem;margin:0 0;"><a @click="getRtuList">加载更多...</a></div>
+			<div v-show="addList" slot="footer" style="text-align: center;font-size: 1rem;margin:0 0;"><a @click="getRtuList">加载更多...</a></div>
 			<!-- </template> -->
 
 		</Table>
@@ -50,7 +50,7 @@
 			<!-- <template slot="close"> -->
 			<Icon slot="close" type="md-close" size="30" />
 			<!-- </template> -->
-			<iar-info v-if="rtuTypeTag == 'IA_R'" :rtu-number="rtuNumber"></iar-info>
+			<iar-info v-if="rtuTypeTag == 'IA_WS'" :rtu-number="rtuNumber"></iar-info>
 			<iasf-info v-if="rtuTypeTag == 'IA_SF'" :rtu-number="rtuNumber"></iasf-info>
 			<iaw-info v-if="rtuTypeTag == 'IA_W'" :rtu-number="rtuNumber"></iaw-info>
 			<iat-info v-if="rtuTypeTag == 'IA_T'" :rtu-number="rtuNumber"></iat-info>
@@ -75,6 +75,7 @@
 	import DefaultRtuInfo from './component/default-rtu-info.vue'
 	// import RtuForm from '../component/rtu-form.vue'
 	// import CopyRtu from '../component/copy-rtu.vue'
+	import RtuTag from '@/data/rtu-tag.js'
 	export default {
 		name: 'm_rtu',
 		components: {
@@ -147,13 +148,13 @@
 
 			show_rtu_info(row, index) {
 				// console.log(row)
-				if (row.rtuTypeTag == 'WS_G' || row.rtuTypeTag == 'WS_N') {
-					this.rtuTypeTag = 'IA_R'
-				} else if (row.rtuTypeTag == 'SF_G' || row.rtuTypeTag == 'SF_N') {
+				if (row.rtuTypeTag == RtuTag.rtuWSTag1 || row.rtuTypeTag == RtuTag.rtuWSTag2) {
+					this.rtuTypeTag = 'IA_WS'
+				} else if (row.rtuTypeTag == RtuTag.rtuSFTag1 || row.rtuTypeTag == RtuTag.rtuSFTag2) {
 					this.rtuTypeTag = 'IA_SF'
-				} else if (row.rtuTypeTag == 'W_G' || row.rtuTypeTag == 'W_N') {
+				} else if (row.rtuTypeTag == RtuTag.rtuWTag1 || row.rtuTypeTag == RtuTag.rtuWTag2) {
 					this.rtuTypeTag = 'IA_W'
-				} else if (row.rtuTypeTag == 'T_G' || row.rtuTypeTag == 'T_N') {
+				} else if (row.rtuTypeTag == RtuTag.rtuTTag1 || row.rtuTypeTag == RtuTag.rtuTTag2) {
 					this.rtuTypeTag = 'IA_T'
 				} else {
 					this.rtuTypeTag = 'default_rtu'
@@ -181,10 +182,11 @@
 								this.rtuListData.push(item)
 								return item
 							})
-							if (data.iaRtuList.length < this.pageSize)
+							if (data.iaRtuList.length < this.pageSize) {
 								this.addList = false
-						} else {
-							this.addList = true
+							} else {
+								this.addList = true
+							}
 						}
 						//this.rtuList = data.rtuList
 					} else {

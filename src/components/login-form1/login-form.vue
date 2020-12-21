@@ -59,8 +59,8 @@ export default {
     return {
 			//verCodeSrc:this.$config.baseUrl.dev+'/verifycode?from=3',
       form: {
-        userName: 'zrwladmin',
-        password: '123',
+        userName: '',
+        password: '',
 				verCode:''
       }
     }
@@ -81,6 +81,9 @@ export default {
 		changeCode(){
 		//alert(this.$config. baseUrl.dev)
 			this.verCodeSrc = this.$config.baseUrl.dev+'/verifycode?from=3&rend='+Math.random()
+			this.form.userName = this.$store.state.user.localLoginInfo.userName
+			this.form.password = this.$store.state.user.localLoginInfo.password
+			console.log(1+this.$store.state.user.localLoginInfo)
 			
 		},
     handleSubmit () {
@@ -94,6 +97,10 @@ export default {
         }
       })
     }
-  }
+  },
+	mounted() {
+		this.form.userName = this.$store.state.user.localLoginInfo.userName
+		this.form.password = this.$store.state.user.localLoginInfo.password
+	}
 }
 </script>

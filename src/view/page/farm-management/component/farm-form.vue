@@ -3,8 +3,7 @@
 
 		<div ref="map" style="width:80%;float: left;overflow:hidden;background: #808695;height:100%;display: flex;justify-content:center;position: relative;">
 			<div v-show="showMap" id="mapBgDiv" ref="mapBgDiv" style="position: absolute;height: 100%;overflow:hidden;background: #00BFFF;width: 100%;">
-				<img id="mapBgImg" ref="mapBgImg" :src="mapBgImgUrl" style="z-index: 1;height: 100%;width: 100%;" draggable="false"
-				 :class="{ widthActive:value }" />
+				<img id="mapBgImg" ref="mapBgImg" :src="mapBgImgUrl" style="z-index: 1;height: 100%;width: 100%;" draggable="false" :class="{ widthActive:value }" />
 				<div v-for="item in rtuImgList" :key="item.rtuNumber" v-drag class="drag" :style="{top:item.heightScale+'%',left:item.widthScale+'%'}">
 					<Poptip :title="item.rtuNumber">
 						<div slot="content">

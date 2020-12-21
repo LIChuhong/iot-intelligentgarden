@@ -72,7 +72,7 @@
 				verCodeSrc: this.$config.baseUrl.dev + '/verifyCode?from=3',
 				// verCodeSrc:'',
 				form: {
-					 userName: '',
+					userName: '',
 					password: '',
 					verCode: ''
 				}
@@ -90,7 +90,12 @@
 		methods: {
 			changeCode() {
 				//alert(this.$config. baseUrl.dev)
+				// console.log(this.form)
 				this.verCodeSrc = this.$config.baseUrl.dev + '/verifyCode?from=3&rend=' + Math.random()
+				this.form.userName = this.$store.state.user.localLoginInfo.userName
+				this.form.password = this.$store.state.user.localLoginInfo.password
+				// console.log(this.$store.state.user.localLoginInfo.userName)
+				// console.log(this.$store.state.user.localLoginInfo.password)
 				// verifyCode().then(res=>{
 				// 	const data = res.data
 				// 	// console.log(data)

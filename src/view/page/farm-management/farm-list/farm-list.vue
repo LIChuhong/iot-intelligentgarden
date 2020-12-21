@@ -3,13 +3,13 @@
 		<!-- <sf-model :sf-rtu-number="100000"></sf-model> -->
 		<div v-show="!editor" ref="maps1" style="height:100%;position: relative;overflow: hidden;background: #dcdee2;">
 			<!-- <div ref="map1" > -->
-			<div style="position: absolute;top:0;left:0;z-index: 100;width: 100%;text-align: center;color: red">画面名称:{{mapName}}</div>
+			<div style="position: absolute;top:0;left:0;z-index: 100;width: 100%;text-align: center;color: red">{{mapName}}</div>
 			<div :style="mapStyle" @mousewheel="mouseWheel" @mousedown="mousedownView" @touchstart="touchstartView" id="mapBgDiv1"
 			 ref="mapBgDiv1">
 				<img id="mapBgImg1" ref="mapBgImg1" :src="mapBgImgUrl" style="height: 100%;" draggable="false" />
 				<div v-for="item in rtuImgList" :key="item.rtuNumber" class="drag1" :style="{top:item.heightScale+'%',left:item.widthScale+'%',cursor:'pointer',}"
 				 :title="item.rtuNumber">
-					<p class="rtuImgTitle">{{item.rtuDesc?item.rtuDesc:item.rtuTypeName}}</p>
+					<p class="rtuImgTitle">{{item.rtuName?item.rtuName:item.rtuDesc}}</p>
 					<div @click="showVideo(item)" v-show="item.videoId > 0" class="videoTitle">
 						<Icon :type="' iconfont '+item.videoIcon" />
 					</div>
@@ -83,16 +83,16 @@
 				<zoom-controller v-model="zoom" :min="100" :max="300" :step="20"></zoom-controller>
 				<div style="text-align: center;margin-top:0.625rem;color: red">{{refreshDataInv}}s</div>
 			</div>
-			<Modal title="农场列表" v-model="showMapList" footer-hide :transfer="false">
-				<Icon slot="close" type="md-close"  size="30"/>
+			<Modal title="园区列表" v-model="showMapList" footer-hide :transfer="false">
+				<Icon slot="close" type="md-close" size="30" />
 				<map-list v-if="showMapList" @get-map-info="getMapInfo"></map-list>
 			</Modal>
 			<Modal :title="'水肥一体机'+iaSf.rtuNumber" v-model="iaSf.show" footer-hide :transfer="false">
-				<Icon slot="close" type="md-close"  size="30"/>
+				<Icon slot="close" type="md-close" size="30" />
 				<sf-model v-if="iaSf.show" :sf-rtu-number="iaSf.rtuNumber"></sf-model>
 			</Modal>
 			<Modal :styles="{left:0,top:0,margin:0}" title="视频" v-model="dragModal" :draggable="true" footer-hide :transfer="false">
-				<Icon slot="close" type="md-close"  size="30"/>
+				<Icon slot="close" type="md-close" size="30" />
 				<EZUIKitJs v-if="dragModal && brandTag == 'YSY'" :et-wide-high="etWideHigh" :video-key="videoKey"></EZUIKitJs>
 				<vi-player v-if="dragModal && brandTag == 'LCY'" :et-wide-high="etWideHigh" :video-key="videoKey"></vi-player>
 			</Modal>
@@ -136,6 +136,7 @@
 		getVideo
 	} from '@/api/video.js'
 	import ZoomController from '../component/zoom-controller.vue'
+	import RtuTag  from '@/data/rtu-tag.js'
 	export default {
 		name: 'farm_list',
 		components: {
@@ -240,9 +241,9 @@
 					clearInterval(this.timer1);
 					this.getMapDataMethod()
 					// clearInterval(this.timer1);
-				} else if(this.refreshDataInv < 0){
+				} else if (this.refreshDataInv < 0) {
 					clearInterval(this.timer1);
-				}else{
+				} else {
 					this.refreshDataInv--;
 				}
 			},
@@ -416,7 +417,7 @@
 				this.iat.show = false
 				// this.iaSf.show = false
 				this.iat.rtuNumber = null
-				if (item.rtuTypeTag == 'IA_SF_G' || item.rtuTypeTag == 'IA_SF_N') {
+				if (item.rtuTypeTag == RtuTag.rtuSFTag1 || item.rtuTypeTag == RtuTag.rtuSFTag2) {
 					this.iaSf.rtuNumber = item.rtuNumber
 					this.iaSf.show = true
 				} else {
@@ -428,7 +429,7 @@
 						if (data.success == 1) {
 							var rtuData = data.rtuData
 							if (rtuData.parameterDataList != null && rtuData.parameterDataList) {
-								if (rtuData.rtuTypeTag == 'IA_W_G' || rtuData.rtuTypeTag == 'IA_W_N') {
+								if (rtuData.rtuTypeTag == RtuTag.rtuWTag1 || rtuData.rtuTypeTag == RtuTag.rtuWTag2) {
 									this.iat.rtuNumber = rtuData.rtuNumber
 								}
 								this.showParamDataList(rtuData.rtuTypeTag, rtuData.parameterDataList)
@@ -444,7 +445,7 @@
 
 			},
 			showParamDataList(rtuTypeTag, list) {
-				if (rtuTypeTag == 'IA_WS_G' || rtuTypeTag == 'IA_WS_N') {
+				if (rtuTypeTag == RtuTag.rtuWSTag1 || rtuTypeTag == RtuTag.rtuWSTag2) {
 					this.parameterDataList = list.map(item => {
 						if (item.parameterId == 9) {
 							item.iconColor = '#0187fc'
@@ -472,7 +473,7 @@
 						}
 						return item
 					})
-				} else if (rtuTypeTag == 'IA_T_G' || rtuTypeTag == 'IA_T_N') {
+				} else if (rtuTypeTag == RtuTag.rtuTTag1 || rtuTypeTag == RtuTag.rtuTTag2) {
 					list.map(item => {
 						if (item.parameterId == 18) {
 							item.iconColor = '#0187fc'
@@ -489,7 +490,7 @@
 						}
 						return item
 					})
-				} else if (rtuTypeTag == 'IA_W_G' || rtuTypeTag == 'IA_W_N') {
+				} else if (rtuTypeTag == RtuTag.rtuWTag1 || rtuTypeTag == RtuTag.rtuWTag2) {
 					// var showRtuState = ''
 					list.map(item => {
 						if (item.parameterId == 25) {
@@ -795,7 +796,8 @@
 		padding: 0;
 		background: rgba(255, 0, 0, 0.5);
 		top: -1.125rem;
-		right: -50%;
+		right:-50%;
+		margin: 0 auto;
 		white-space: nowrap;
 		text-align: center;
 		min-width: 3.75rem;

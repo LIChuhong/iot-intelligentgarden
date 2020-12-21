@@ -26,8 +26,10 @@ export default {
     // dev: 'https://www.easy-mock.com/mock/5add9213ce4d0e69998a6f51/iview-admin/',
     // pro: 'https://produce.com'
 		
-		 dev: 'https://iabe.zrwl-iot.com',
-		pro: 'https://iabe.zrwl-iot.com'
+		//  dev: 'https://iabe.zrwl-iot.com',
+		// pro: 'https://iabe.zrwl-iot.com',
+		dev: 'https://igbe.zrwl-iot.com',
+		pro: 'https://igbe.zrwl-iot.com'
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home
