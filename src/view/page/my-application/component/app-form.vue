@@ -12,7 +12,7 @@
 		<p class="appStyle"><span>启禁用：<Checkbox v-model="appCheck.enable"></Checkbox></span></p>
 		</div>
 		<div style="text-align: center;">
-			<Button v-show="appText =='添加' " type="primary" @click="addAppMethod">{{appText}}</Button>
+			<Button v-show="appText =='创建' " type="primary" @click="addAppMethod">{{appText}}</Button>
 			<Button v-show="appText =='修改' " type="primary" @click="updateAppMethod">{{appText}}</Button>
 		</div>
 	</div>
@@ -31,8 +31,9 @@
 			return {
 				appCheck: {
 					appName: '',
-					appText: '添加'
-				}
+					
+				},
+				appText: '创建'
 			}
 		},
 		methods: {

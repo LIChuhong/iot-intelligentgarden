@@ -161,7 +161,7 @@
 						menuText: '园区',
 						name: 'm_farm',
 						to: '/m_farm',
-						iconType: ' iconfont icon-ic_zhnc'
+						iconType: ' iconfont icon-yq'
 					},
 					{
 						menuText: '策略',
