@@ -5,6 +5,7 @@
 				<Option v-for="item in keyFieList" :key="item.id" :value="item.id">{{item.title}}</Option>
 			</Select>
 			<Input search enter-button placeholder="请输入关键字" @on-search="findRtuList" style="width: 300px;float: left;" />
+			<Cascader style="width: 200px;display: inline-block;margin:0 8px;" :data="orgListData" change-on-select :render-format="format" placeholder="选择查找" @on-change="handleChange"></Cascader>
 		</div>
 		<Table size="small" border :columns="rtuListColumns" :data="rtuListData" :loading="tableLoading">
 			<template slot-scope="{ row }" slot="rtuTypeImgUrl">
@@ -50,6 +51,9 @@
 		isEnableRtu,getRtuData
 	} from '@/api/rtu'
 	import {
+		getOrgChildrenList
+	} from '@/api/org.js'
+	import {
 		rtuListColumns
 	} from '@/data/columns.js'
 	import RtuForm from '../component/rtu-form.vue'
@@ -62,6 +66,7 @@
 		},
 		data() {
 			return {
+				orgListData:[],
 				tableLoading: false,
 				copyRtuTitle: '',
 				showCopyform: false,
@@ -74,6 +79,7 @@
 				pageSize: 10,
 				prevId: [0],
 				keyField: 0,
+				orgId:this.$store.state.user.userInfo.orgId,
 				keyFieList: [{
 						id: 0,
 						title: '机器名称'
@@ -86,6 +92,37 @@
 			}
 		},
 		methods: {
+			handleChange(value, selectedData){
+				console.log(selectedData)
+				this.orgId = value.pop()
+				this.maxId = 0
+				this.prevId = [0]
+				this.getRtuList()
+				},
+			format (labels, selectedData) {
+                const index = labels.length - 1;
+                const data = selectedData[index] || false;
+                // if (data && data.code) {
+                //     return labels[index];
+                // }
+                return labels[index];
+            },
+			getOrgList(){
+				getOrgChildrenList().then(res=>{//获取组织结构列表
+					// this.belongOrgList = []
+					const data =res.data
+					if(data.success == 1){
+						const org = data.org
+						// org.expand = true
+						this.orgListData.push(org)
+						// console.log(this.belongOrgList)
+					}else{
+						this.$Message.error(data.Message);
+					}
+				}).catch(error => {
+					alert(error)
+				})
+			},
 			detectionRtu(row,index){
 				row.checkLoading = true
 				getRtuData(row.rtuNumber).then(res => {
@@ -135,7 +172,7 @@
 			getRtuList() {
 				this.tableLoading = true
 
-				getRtuList(this.keyField, this.searchKey, this.maxId, this.pageSize).then(res => {
+				getRtuList(this.keyField, this.searchKey,this.orgId, this.maxId, this.pageSize).then(res => {
 					const data = res.data
 					// console.log(data)
 					this.tableLoading = false
@@ -181,11 +218,15 @@
 			},
 			findRtuList(searchKey) {
 				//查找机器列表
+				this.orgId=''
 				this.searchKey = searchKey
 				this.maxId = 0
 				this.prevId = [0]
 				this.getRtuList()
 			},
+		},
+		created() {
+			this.getOrgList()
 		},
 		mounted() {
 			// this.$route.meta.keepAlive = true

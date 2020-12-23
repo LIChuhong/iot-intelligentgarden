@@ -44,12 +44,13 @@ export const updateRtu = (newRtu) => {
 }
 
 //获取机器列表
-export const getRtuList = (keyField,searchKey,maxId,pageSize) => {
+export const getRtuList = (keyField,searchKey,orgId,maxId,pageSize) => {
   return axios.request({
     url: '/v1/getRtuList',
 		params:{
 			'keyField': keyField,
 			'searchKey': searchKey,
+			'orgId': orgId,
 			'maxId': maxId,
 			'pageSize': pageSize
 		},

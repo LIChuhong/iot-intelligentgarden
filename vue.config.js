@@ -29,6 +29,8 @@ module.exports = {
 	  // externals: {
 	  // 	"BMap": "BMap"
 	  // }
+		const Timestamp = new Date().getTime(); 
+		
 	  if (BASE_URL) {
 	    return {
 	      plugins: [new compressionPlugin({
@@ -36,7 +38,11 @@ module.exports = {
 	        threshold: 10240, // 对超过10k的数据压缩
 	        deleteOriginalAssets: false // 不删除源文件
 	      })
-	      ]
+	      ],
+				output: {
+				  filename: `js/[name].${Timestamp}.js`,
+				  chunkFilename: `js/[name].${Timestamp}.js`
+				}
 	    }
 	  }
 	},

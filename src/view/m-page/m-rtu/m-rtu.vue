@@ -1,9 +1,11 @@
 <template>
 	<div ref="divTableHeight" class="mRtuStyle">
 		<div style="overflow: hidden;padding: 0.5rem;position: fixed;z-index: 2;width: 100%;background: #dcdee2;">
-			<Button style="float: right;" type="text" @click="refreshRtuList"><a>刷新</a></Button>
+			<!-- <Button style="float: right;" type="text" @click="refreshRtuList"><a>刷新</a></Button> -->
+			<Button style="float: right;"  type="text" @click="showBelongOrgList"><a>{{belongOrgName}}</a></Button>
+			<!-- <Cascader style="width: 38%;float:left;z-index: 2000;" :data="orgListData" change-on-select :render-format="format" placeholder="组织查找" @on-change="handleChange"></Cascader> -->
 
-			<Input search enter-button placeholder="请输入关键字" @on-search="findRtuList" style="width: 15.625rem;" />
+			<Input  search enter-button placeholder="请输入关键字" @on-search="findRtuList" style="width: 60%;" />
 
 		</div>
 		<!-- <div style="position: absolute;top:3.125rem;bottom: 6.25rem;width: 100%;"> -->
@@ -15,10 +17,7 @@
 					<img :src="row.rtuTypeImgUrl" :alt="row.rtuNumber" style="max-height: 2.8125rem;max-width:2.8125rem;" />
 				</div>
 			</template>
-			<!-- <template slot-scope="{ row }" slot="nameAndserialNum">
-				<p>{{ row.rtuNumber }}</p>
-				<p>({{ row.rtuName }})</p>
-			</template> -->
+			
 			<template slot-scope="{ row }" slot="rtuState">
 				<div style="position: relative;height: 2.875rem;line-height:2.875rem;">
 					<div style="position: absolute;right:0;top:-0.625rem;">
@@ -28,11 +27,7 @@
 					<Badge v-show="row.networkState == 0" status="default" text="离线" />
 				</div>
 			</template>
-			<!-- <template slot-scope="{ row, index }" slot="action">
-				<Button size="small" type="text" @click="show_rtu_info(row,index)" style="font-size: 12px;"><a>详情</a></Button>
-			</template> -->
-			<!-- <template v-if="addList" slot="footer"> -->
-
+		
 			<div v-show="addList" slot="footer" style="text-align: center;font-size: 1rem;margin:0 0;"><a @click="getRtuList">加载更多...</a></div>
 			<!-- </template> -->
 
@@ -56,6 +51,16 @@
 			<iat-info v-if="rtuTypeTag == 'IA_T'" :rtu-number="rtuNumber"></iat-info>
 			<default-rtu-info v-if="rtuTypeTag == 'default_rtu'" :rtu-number="rtuNumber"></default-rtu-info>
 		</Modal>
+		<Modal :title="'当前选择:'+ belongOrgTitle" v-model="showBelongOrg">
+			<Icon slot="close" type="md-close"  size="30"/>
+			<div class="tree-style">
+				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
+			</div>
+			<div slot="footer">
+				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+			</div>
+		</Modal>
+		
 
 	</div>
 </template>
@@ -76,6 +81,7 @@
 	// import RtuForm from '../component/rtu-form.vue'
 	// import CopyRtu from '../component/copy-rtu.vue'
 	import RtuTag from '@/data/rtu-tag.js'
+	import OrgTree from '@/view/components/org-tree.vue'
 	export default {
 		name: 'm_rtu',
 		components: {
@@ -83,11 +89,18 @@
 			IasfInfo,
 			IawInfo,
 			IatInfo,
-			DefaultRtuInfo
+			DefaultRtuInfo,
+			OrgTree,
 
 		},
 		data() {
 			return {
+				
+				showBelongOrg: false,
+				belongOrgTitle: '',
+				belongOrgName: '选择查找', //所属组织名称
+				belongOrgInfo: '', //所属组织信息
+				orgListData:[],
 				addList: true,
 				tableHeight: 500,
 				rtuTypeTag: '',
@@ -98,6 +111,7 @@
 				showRtuInfo: false,
 				rtuNumber: null,
 				rtuListColumns: rtuListColumns1,
+				orgId:this.$store.state.user.userInfo.orgId,
 				rtuListData: [],
 				searchKey: '',
 				maxId: 0,
@@ -116,6 +130,25 @@
 			}
 		},
 		methods: {
+			showBelongOrgList() { //显示所属组织列表
+				this.belongOrgTitle = this.belongOrgName
+				this.showBelongOrg = true
+			
+			},
+			showBelongOrgInfo(data) { //显示所选所属组织信息
+				this.belongOrgInfo = data
+				this.belongOrgTitle = data[0].orgName
+			},
+			belongOrgOk() { //确定所属组织
+				//const selectedNodes = this.$refs.belongOrgTree.getSelectedNodes();
+				this.orgId = this.belongOrgInfo[0].orgId
+				this.belongOrgName = this.belongOrgInfo[0].orgName
+				this.showBelongOrg = false
+				this.maxId = 0
+				this.rtuListData = []
+				this.getRtuList()
+			},
+			
 			refreshRtuList() {
 				this.maxId = 0
 				this.rtuListData = []
@@ -166,7 +199,7 @@
 			getRtuList() {
 				this.tableHeight = this.$refs.divTableHeight.clientHeight - 50
 				this.tableLoading = true
-				getRtuList(this.keyField, this.searchKey, this.maxId, this.pageSize).then(res => {
+				getRtuList(this.keyField, this.searchKey,this.orgId, this.maxId, this.pageSize).then(res => {
 					const data = res.data
 					// console.log(data)
 					this.tableLoading = false
@@ -223,6 +256,7 @@
 				this.searchKey = searchKey
 				this.maxId = 0
 				this.rtuListData = []
+				this.orgId=''
 				this.prevId = [0]
 				this.getRtuList()
 			},
@@ -235,6 +269,7 @@
 
 			this.getRtuList()
 		},
+		
 	}
 </script>
 

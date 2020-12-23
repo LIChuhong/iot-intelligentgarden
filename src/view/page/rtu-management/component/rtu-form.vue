@@ -280,7 +280,7 @@
 						const rtuForm = {
 							'rtuNumber': parseInt(this.rtuForm.rtuNumber),
 							'rtuName': this.rtuForm.rtuName,
-							'rtuSerialNumber': 'l1' + '-' + this.rtuForm.rtuTypeTag + '-' + this.rtuForm.rtuVersion + '-' +
+							'rtuSerialNumber': 'l2' + '-' + this.rtuForm.rtuTypeTag + '-' + this.rtuForm.rtuVersion + '-' +
 								getNowFormatDate(this.rtuForm.makeDate, '') + '-' + this.rtuForm.makeBatch + '-' + this.rtuForm.rtuNumber,
 							'rtuTypeId': parseInt(this.rtuForm.rtuTypeId),
 							'belongOrgId': parseInt(this.rtuForm.belongOrgId),
