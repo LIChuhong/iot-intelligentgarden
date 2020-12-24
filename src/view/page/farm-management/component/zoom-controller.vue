@@ -2,11 +2,11 @@
 <template>
   <div class="zoom-wrapper">
     <button class="zoom-button" @click="scale('down')">
-      <Icon type="md-remove" :size="14" color="#fff"/>
+      <Icon type="md-remove" :size="30" color="#fff"/>
     </button>
     <span class="zoom-number">{{ value }}%</span>
     <button class="zoom-button" @click="scale('up')">
-      <Icon type="md-add" :size="14" color="#fff"/>
+      <Icon type="md-add" :size="30" color="#fff"/>
     </button>
   </div>
 </template>
@@ -53,9 +53,9 @@ export default {
 }
 .zoom-wrapper {
   .zoom-button {
-    width: 20px;
-    height: 20px;
-    line-height: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
     border-radius: 50%;
     background: rgb(124, 180, 41);
     box-shadow: 0px 2px 8px 0px rgba(218, 220, 223, 0.7);
@@ -72,7 +72,7 @@ export default {
     }
   }
   .zoom-number {
-    color: #17233d;
+    color: red;
     padding: 0 8px;
     display: inline-block;
     width: 46px;

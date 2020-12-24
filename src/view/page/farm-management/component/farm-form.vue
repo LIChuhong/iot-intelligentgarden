@@ -5,7 +5,7 @@
 			<div v-show="showMap" id="mapBgDiv" ref="mapBgDiv" style="position: absolute;height: 100%;overflow:hidden;background: #00BFFF;width: 100%;">
 				<img id="mapBgImg" ref="mapBgImg" :src="mapBgImgUrl" style="z-index: 1;height: 100%;width: 100%;" draggable="false" :class="{ widthActive:value }" />
 				<div v-for="item in rtuImgList" :key="item.rtuNumber" v-drag class="drag" :style="{top:item.heightScale+'%',left:item.widthScale+'%'}">
-					<Poptip :title="item.rtuNumber">
+					<Poptip transfer :title="item.rtuNumber">
 						<div slot="content">
 							<div v-show="!item.workingRtuVideo">
 								未加入视频轮播
@@ -50,7 +50,7 @@
 						<Input search enter-button placeholder="请输入名称关键字..." size="small" />
 						<Tree @on-check-change="checkRtu" :data="rtuListData" show-checkbox multiple></Tree>
 						<div v-show="showAddRtu" style="text-align: center;">
-							<a @click="getRtuList">加载更多...</a>
+							<a @click="getRtuList(rtuImgList)">加载更多...</a>
 						</div>
 					</TabPane>
 					<TabPane label="视频">
@@ -356,8 +356,9 @@
 				})
 			},
 			getRtuList(list, rvList) {
-				console.log(list)
-				getRtuList(this.keyField, this.searchKey, this.maxId, this.pageSize).then(res => {
+				// console.log(list)
+				var orgId = this.$store.state.user.userInfo.orgId
+				getRtuList(this.keyField, this.searchKey,orgId, this.maxId, this.pageSize).then(res => {
 					const data = res.data
 					if (data.success == 1) {
 						data.iaRtuList.map(item => {
@@ -375,16 +376,13 @@
 										item.workingRtuVideo = true
 										this.shufflingRtuList.push(item)
 									}
-									console.log(this.shufflingRtuList)
 								}
 							}
 							for (var i = 0; i < list.length; i++) {
-								// list[i].workingRtuVideo = false
 								if (item.id == list[i].id) {
 									item.checked = true
 									item.heightScale = list[i].heightScale
 									item.widthScale = list[i].widthScale
-									this.rtuImgList.push(item)
 								}
 
 							}
@@ -472,7 +470,10 @@
 							this.belongOrgName = map.orgName
 							// this.checkRtuData = iaRtuList
 							// console.log(this.rtuImgList)
-
+							for(var i= 0;i<iaRtuList.length;i++){
+								iaRtuList[i].checked = true
+								this.rtuImgList.push(iaRtuList[i])
+							}
 							this.getRtuList(iaRtuList, map.workingRtuVideoList)
 							this.getVideoList(map.videoPostionList)
 

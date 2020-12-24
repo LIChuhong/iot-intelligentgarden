@@ -1,6 +1,6 @@
 <template>
 	<div class="mFarmStyle" style="height: 100%;overflow:hidden;">
-		<div style="position: absolute;top:0;left:0;z-index: 100;width: 100%;text-align: center;color: red">{{mapName}}</div>
+		<div style="position: absolute;top:0;left:0;z-index: 100;width: 100%;text-align: center;color: red;font-size:1.25rem;">{{mapName}}</div>
 		<div ref="maps1" style="height:100%;position: relative;overflow:auto;background: #dcdee2;display: flex;justify-content:center">
 			<!-- <div ref="map1" > -->
 			<div :style="mapStyle" @touchstart="touchstartView" id="mapBgDiv1" ref="mapBgDiv1">
@@ -14,7 +14,8 @@
 					<Poptip :title="item.rtuNumber" @on-popper-show="getRtuDataInfo(item)">
 						<div slot="content">
 							<div style="font-size: 0.75rem;" v-for="(item1 , index) in parameterDataList" :key="index">
-								<Icon :color="item1.iconColor" :type="' iconfont'+ ' ' +item1.iconFont" /><span>{{item1.parameterName}}:<span :style="{color:item1.iconColor }">{{item1.value}}{{item1.unit}}</span></span></div>
+								<Icon :color="item1.iconColor" :type="' iconfont'+ ' ' +item1.iconFont" /><span>{{item1.parameterName}}:<span
+									 :style="{color:item1.iconColor }">{{item1.value}}{{item1.unit}}</span></span></div>
 							<div v-if="iat.show">
 								<p>状态:
 									<Icon :color="iat.iconColor" :type="iat.icon" />
@@ -63,15 +64,15 @@
 			<zoom-controller v-model="zoom" :min="60" :max="300" :step="5"></zoom-controller>
 		</div>
 		<Modal title="园区列表" v-model="showMapList" footer-hide>
-			<Icon slot="close" type="md-close"  size="30"/>
+			<Icon slot="close" type="md-close" size="30" />
 			<map-list v-if="showMapList" @get-map-info="getMapInfo"></map-list>
 		</Modal>
 		<Modal :title="iaSf.rtuNumber" v-model="iaSf.show" footer-hide fullscreen @on-cancel="cancel">
-			<Icon slot="close" type="md-close"  size="30"/>
+			<Icon slot="close" type="md-close" size="30" />
 			<sf-model v-if="iaSf.show" :sf-rtu-number="iaSf.rtuNumber"></sf-model>
 		</Modal>
 		<Modal v-model="showVideoInfo" title="视频详情" footer-hide fullscreen>
-			<Icon slot="close" type="md-close"  size="30"/>
+			<Icon slot="close" type="md-close" size="30" />
 			<video-info :video-info="videoInfo" v-if="showVideoInfo"></video-info>
 		</Modal>
 		<Spin fix v-show="showSpin" style="background: rgba(255,255,255,0.3);">
@@ -107,7 +108,7 @@
 		rtuTimeDataList
 	} from '@/view/components/js/data.js'
 	import VideoInfo from '@/view/m-page/m-rtu/component/video-info.vue'
-	import RtuTag  from '@/data/rtu-tag.js'
+	import RtuTag from '@/data/rtu-tag.js'
 	export default {
 		name: 'm_farm',
 		components: {
@@ -269,7 +270,7 @@
 				this.setRtu1(value, false, false)
 			},
 			setRtu1(value, forceOpen, jumpLinkage) {
-				
+
 				var rtuData = {
 					rtuNumber: this.iat.rtuNumber,
 					orderType: 2,
@@ -332,14 +333,13 @@
 									onOk: () => {
 										this.setRtu1(value, true, false)
 									},
-									onCancel: () => {
-									},
-									
+									onCancel: () => {},
+
 								});
 							} else {
 								this.$Message.error(data.errorMessage)
 							}
-							
+
 						} else {
 							this.$Message.error(data.errorMessage)
 						}
@@ -415,7 +415,7 @@
 						}
 						return item
 					})
-				
+
 				} else if (rtuTypeTag == RtuTag.rtuTTag1 || rtuTypeTag == RtuTag.rtuTTag2) {
 					list.map(item => {
 						if (item.parameterId == 18) {
@@ -471,8 +471,10 @@
 				} else if (event.touches.length >= 2) {
 					// alert(event.changedTouches[0].pageX)
 					// alert(event.changedTouches[1].pageX)
-					x1 = that.getDistance(event.touches[0], event.touches[1])
-					// alert(x1)
+					if (/(Android)/i.test(navigator.userAgent)) {
+						x1 = that.getDistance(event.touches[0], event.touches[1])
+						// alert(x1)
+					}
 
 				}
 				document.ontouchmove = function(event) {
@@ -481,16 +483,18 @@
 						// that.orgTreeOffsetLeft = that.oldMarginLeft + event.touches[0].pageX - that.initPageX
 						// that.orgTreeOffsetTop = that.oldMarginTop +event.touches[0].pageY - that.initPageY
 					} else if (event.touches.length >= 2) {
-						var x2 = that.getDistance(event.touches[0], event.touches[1])
-						if (x2 > x1) {
-							if (that.zoom < 300) {
-								that.zoom += 5
+						if (/(Android)/i.test(navigator.userAgent)) {
+							var x2 = that.getDistance(event.touches[0], event.touches[1])
+							if (x2 > x1) {
+								if (that.zoom < 300) {
+									that.zoom += 5
 
+								}
 							}
-						}
-						if (x2 < x1) {
-							if (that.zoom > 60) {
-								that.zoom -= 5
+							if (x2 < x1) {
+								if (that.zoom > 60) {
+									that.zoom -= 5
+								}
 							}
 						}
 
@@ -607,7 +611,6 @@
 </script>
 
 <style lang="less">
-	
 	@media screen and (min-width:300px) and (max-width:900px) {
 		.mFarmStyle .ivu-modal-body {
 			padding: 0px;
@@ -626,10 +629,10 @@
 		.rtuImgStyle1 {
 			position: absolute;
 			color: #ffffff;
-			font-size: 0.5rem;
+			font-size: 1rem;
 			padding: 0;
 			background: rgba(255, 0, 0, 0.5);
-			top: -1.125rem;
+			top: -1.5rem;
 			right: -50%;
 			white-space: nowrap;
 			text-align: center;
