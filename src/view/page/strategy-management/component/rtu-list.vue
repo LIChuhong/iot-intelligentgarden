@@ -109,7 +109,8 @@
 			},
 			getRtuList() {
 				this.selLoading = true
-				getRtuList(this.keyField, this.searchKey, this.maxId, this.pageSize).then(res => {
+				var orgId = this.$store.state.user.userInfo.orgId
+				getRtuList(this.keyField, this.searchKey,orgId, this.maxId, this.pageSize).then(res => {
 					const data = res.data
 					// console.log(data)
 					this.selLoading = false
