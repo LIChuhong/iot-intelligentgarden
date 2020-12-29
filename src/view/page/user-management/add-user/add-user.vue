@@ -41,7 +41,7 @@
 			</FormItem>
 
 			<FormItem label="所属组织" prop="belongOrgId">
-				<Input :disabled="disParentOrgId" readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织"
+				<Input readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织"
 				 @on-search="showBelongOrgList"></Input>
 
 			</FormItem>
@@ -115,7 +115,7 @@
 				belongOrgTitle: '',
 				belongOrgName: '', //所属组织名称
 				belongOrgInfo: '', //所属组织信息
-
+				userRolesList:[],
 				userForm: {
 					userName: '',
 					password: '',
@@ -257,8 +257,11 @@
 					const data = res.data
 					if (data.success == 1) {
 						//alert(JSON.stringify(data))
-						this.userRolesList = data.userRolesList
-						this.userForm.userRolesId = this.userRolesList[0].id
+						if(data.userRolesList){
+							this.userRolesList = data.userRolesList
+							this.userForm.userRolesId = this.userRolesList[0].id
+						}
+						
 					} else {
 						this.$Message.error(data.errorMessage);
 					}

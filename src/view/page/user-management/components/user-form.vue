@@ -221,8 +221,10 @@
 					const data = res.data
 					if (data.success == 1) {
 						//alert(JSON.stringify(data))
-						this.userRolesList = data.userRolesList
-						this.userForm.userRolesId = this.userRolesList[0].id
+						if(data.userRolesList){
+							this.userRolesList = data.userRolesList
+							this.userForm.userRolesId = this.userRolesList[0].id
+						}
 						this.getUserInfo()
 					} else {
 						this.$Message.error(data.errorMessage);

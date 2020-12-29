@@ -256,7 +256,6 @@
 				this.searchKey = searchKey
 				this.maxId = 0
 				this.rtuListData = []
-				this.orgId=''
 				this.prevId = [0]
 				this.getRtuList()
 			},

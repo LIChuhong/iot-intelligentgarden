@@ -16,7 +16,7 @@
 								<Button size="small" type="error" @click="delShufflingRtu(item)">退出</Button>
 							</div>
 						</div>
-						<div class="rtuImgStyle">
+						<div class="rtuImgStyle" :title="item.rtuNumber">
 							<img :src="item.rtuTypeImgUrl" class="rtu" :alt="item.rtuNumber" :draggable="false" />
 						</div>
 					</Poptip>

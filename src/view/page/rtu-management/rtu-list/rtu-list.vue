@@ -5,7 +5,7 @@
 				<Option v-for="item in keyFieList" :key="item.id" :value="item.id">{{item.title}}</Option>
 			</Select>
 			<Input search enter-button placeholder="请输入关键字" @on-search="findRtuList" style="width: 300px;float: left;" />
-			<Cascader style="width: 200px;display: inline-block;margin:0 8px;" :data="orgListData" change-on-select :render-format="format" placeholder="选择查找" @on-change="handleChange"></Cascader>
+			<Cascader style="width: 200px;display: inline-block;margin:0 8px;" :data="orgListData" change-on-select :render-format="format" placeholder="选择查找" @on-change="handleChange" @on-visible-change="changeOk"></Cascader>
 		</div>
 		<Table size="small" border :columns="rtuListColumns" :data="rtuListData" :loading="tableLoading">
 			<template slot-scope="{ row }" slot="rtuTypeImgUrl">
@@ -92,19 +92,21 @@
 			}
 		},
 		methods: {
+			changeOk(val){
+				if(!val){
+					this.maxId = 0
+					this.prevId = [0]
+					this.getRtuList()
+				}
+				
+			},
 			handleChange(value, selectedData){
-				console.log(selectedData)
 				this.orgId = value.pop()
-				this.maxId = 0
-				this.prevId = [0]
-				this.getRtuList()
+				
 				},
 			format (labels, selectedData) {
                 const index = labels.length - 1;
                 const data = selectedData[index] || false;
-                // if (data && data.code) {
-                //     return labels[index];
-                // }
                 return labels[index];
             },
 			getOrgList(){
@@ -218,7 +220,7 @@
 			},
 			findRtuList(searchKey) {
 				//查找机器列表
-				this.orgId=''
+				// this.orgId=''
 				this.searchKey = searchKey
 				this.maxId = 0
 				this.prevId = [0]

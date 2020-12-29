@@ -61,12 +61,12 @@
 				tableLoading: false,
 				showBindingLink: false,
 				bindingLinkColumns: linkColumns,
-				rtuNumber: '',
+				rtuNumber: null,
 				bindingLinkData: []
 			}
 		},
 		methods: {
-			getgetBindingRtuLinkInfo(){
+			getBindingRtuLinkInfo(){
 				if(this.number != '' && this.number != null){
 					this.rtuNumber = this.number
 					this.showSpin = true
@@ -126,7 +126,7 @@
 			}
 		},
 		mounted() {
-			this.getgetBindingRtuLinkInfo()
+			this.getBindingRtuLinkInfo()
 		}
 	}
 </script>

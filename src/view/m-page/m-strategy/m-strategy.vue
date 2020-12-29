@@ -163,7 +163,7 @@
 								this.addList = false
 							}
 						}
-						console.log(this.timingDataList)
+						// console.log(this.timingDataList)
 						// this.strategyData = data.switchsStrategyList
 					} else {
 						this.$Message.error(data.errorMessage)
