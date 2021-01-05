@@ -444,6 +444,11 @@
 							this.timer = setInterval(this.showRemTime, 1000);
 						}
 					})
+				}else {
+					this.parameterDataList = list.map(item => {
+						item.iconColor = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')'
+						return item
+					})
 				}
 			},
 			setStateValue(stateValue) {

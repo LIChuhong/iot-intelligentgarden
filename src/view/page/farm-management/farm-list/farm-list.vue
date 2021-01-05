@@ -136,7 +136,7 @@
 		getVideo
 	} from '@/api/video.js'
 	import ZoomController from '../component/zoom-controller.vue'
-	import RtuTag  from '@/data/rtu-tag.js'
+	import RtuTag from '@/data/rtu-tag.js'
 	export default {
 		name: 'farm_list',
 		components: {
@@ -501,6 +501,11 @@
 							this.timer = setInterval(this.showRemTime, 1000);
 						}
 					})
+				} else {
+					this.parameterDataList = list.map(item => {
+						item.iconColor = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')'
+						return item
+					})
 				}
 			},
 			setStateValue(stateValue) {
@@ -796,7 +801,7 @@
 		padding: 0;
 		background: rgba(255, 0, 0, 0.5);
 		top: -1.125rem;
-		right:-50%;
+		right: -50%;
 		margin: 0 auto;
 		white-space: nowrap;
 		text-align: center;
