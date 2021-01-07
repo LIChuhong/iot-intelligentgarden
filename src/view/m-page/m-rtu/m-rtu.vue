@@ -57,7 +57,7 @@
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
 			<div slot="footer">
-				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+				<Button type="primary" size="large" @click="belongOrgOk">{{$t('ok')}}</Button>
 			</div>
 		</Modal>
 		

@@ -29,7 +29,7 @@
 
 		</List>
 
-		<Modal title='修改密码' v-model="showPwd" footer-hide>
+		<Modal :title="$t('change')+$t('password')" v-model="showPwd" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
 			<reset-pwd :user-id="vmUserId"></reset-pwd>
 		</Modal>
@@ -57,7 +57,7 @@
 				showPwd: false,
 				userInfo: this.$store.state.user.userInfo, //用户信息
 				meMenuList: [{
-						name: '修改密码',
+						name: this.$t('change')+this.$t('password'),
 						icon: 'ios-key',
 
 					},
@@ -93,7 +93,7 @@
 				})
 			},
 			actionPlay(item) {
-				if (item.name === '修改密码') {
+				if (item.name === (this.$t('change')+this.$t('password'))) {
 					this.vmUserId = this.userInfo.id
 					//console.log(this.vmUserId)
 					this.showPwd = true

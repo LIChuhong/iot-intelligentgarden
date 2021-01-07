@@ -9,9 +9,9 @@
 			<template slot-scope="{ row, index }" slot="action">
 				<div v-if="$store.state.app.iotInterFace == 0">
 
-				<Button icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">编辑</Button>
+				<Button icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">{{$t('editor')}}</Button>
 				<Poptip placement="right" :transfer="true" confirm title="你确定删除该绑定联动设备吗?" @on-ok="del(row,index)">
-					<Button icon="md-trash" type="error" size="small" style="margin-right: 8px">删除</Button>
+					<Button icon="md-trash" type="error" size="small" style="margin-right: 8px">{{$t('delete')}}</Button>
 				</Poptip>
 				</div>
 				<div v-else>
@@ -26,8 +26,8 @@
 
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑绑定联动" v-model="showLinkRtuInfo" footer-hide width="700">
 			<Icon slot="close" type="md-close"  size="30"/>

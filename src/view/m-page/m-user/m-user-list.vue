@@ -13,13 +13,13 @@
 			</template>
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 
 		</div>
 		<Modal v-model="showUserEditor" title="编辑用户信息" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<user-form v-if="showUserEditor" :user-id="userId">修改</user-form>
+			<user-form v-if="showUserEditor" :user-id="userId">{{$t('change')}}</user-form>
 		</Modal>
 		<Modal title='修改密码' v-model="showPwd" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>

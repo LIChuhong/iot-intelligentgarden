@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<org-form style="width: 90%;margin: 0.625rem auto;">添加</org-form>
+		<org-form style="width: 90%;margin: 0.625rem auto;">{{$t('add')}}</org-form>
 	</div>
 </template>
 

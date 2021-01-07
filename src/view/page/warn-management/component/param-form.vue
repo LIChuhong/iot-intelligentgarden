@@ -18,7 +18,7 @@
 						<p>告警下限:{{item.warnMinValue}}</p>
 						</Col>
 						<Col span="6" style="overflow: hidden;">
-						<p><Button size="small" type="primary" @click="changeWarn(item.warnParam,index)">选择</Button></p>
+						<p><Button size="small" type="primary" @click="changeWarn(item.warnParam,index)">{{$t('choose')}}</Button></p>
 						<p><Button size="small" v-show="index != 0" type="error" @click="handleRemove(index)" icon="ios-trash"></Button></p>
 						<p><Button size="small" v-show="index == (paramAssForm.warnParamList.length-1)" type="primary" ghost @click="handleAddwarnParam" icon="ios-add" style="margin-top: 0.3125rem;" ></Button></p>
 						
@@ -28,7 +28,7 @@
 			</FormItem>
 			</div>
 			<FormItem style="text-align: center;">
-				<Button @click="handleReset('paramAssForm')" style="margin-right: 8px">重置</Button>
+				<Button @click="handleReset('paramAssForm')" style="margin-right: 8px">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('paramAssForm')">
 					<slot></slot>
 				</Button>

@@ -4,18 +4,18 @@
 
 			<template slot-scope="{ row, index }" slot="action">
 
-				<Button v-show="!showBrand" type="primary" size="small" icon="ios-create-outline" @click="editorBrand(row)" >编辑</Button>
-				<Button v-show="showBrand" type="primary" size="small" @click="getBrandInfo(row)">选择</Button>
+				<Button v-show="!showBrand" type="primary" size="small" icon="ios-create-outline" @click="editorBrand(row)" >{{$t('editor')}}</Button>
+				<Button v-show="showBrand" type="primary" size="small" @click="getBrandInfo(row)">{{$t('choose')}}</Button>
 			</template>
 			
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑视频品牌信息" v-model="showBrandInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<brand-form :brand-id="brandId" v-if="showBrandInfo">编辑</brand-form>
+			<brand-form :brand-id="brandId" v-if="showBrandInfo">{{$t('editor')}}</brand-form>
 		</Modal>
 	</div>
 </template>

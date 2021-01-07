@@ -12,7 +12,7 @@
 
 		</div>
 		<div style="text-align: center;">
-			<Button style="margin: 5px 0;" type="primary" @click="saveParameterDataList">提交</Button>
+			<Button style="margin: 5px 0;" type="primary" @click="saveParameterDataList">{{$t('submit')}}</Button>
 		</div>
 		<Spin fix v-show="showSpin" style="background: rgba(255,255,255,0.3);">
 			<Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>

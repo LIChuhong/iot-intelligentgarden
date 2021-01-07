@@ -20,22 +20,22 @@
 			</template>
 			<template slot-scope="{ row, index }" slot="action">
 
-				<Button icon="ios-create-outline" size="small" style="margin-right: 10px" @click="show_rtu_info(row,index)">编辑</Button>
+				<Button icon="ios-create-outline" size="small" style="margin-right: 10px" @click="show_rtu_info(row,index)">{{$t('editor')}}</Button>
 				<Button icon="ios-search-outline" type="warning" size="small" :loading="row.checkLoading" style="margin-right: 10px" @click="detectionRtu(row,index)">
-					<span v-if="!row.checkLoading">检测在线</span>
-					<span v-else>检测中....</span>
+					<span v-if="!row.checkLoading">{{$t('detection')+$t('online')}}</span>
+					<span v-else>{{$t('detection')}}....</span>
 				</Button>
 				<i-switch :loading="row.switchLoading" v-model="row.enable" @on-change="isEnableRtuMethods(row)" />
-				<Button size="small" type="info" @click="copyRtu(row)">复制机器</Button>
+				<Button size="small" type="info" @click="copyRtu(row)">{{$t('copy')+$t('rtu')}}</Button>
 			</template>
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal v-model="showRtuInfo" title="编辑设备信息" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<rtu-form :rtu-number="rtuNumber" v-if="showRtuInfo">修改</rtu-form>
+			<rtu-form :rtu-number="rtuNumber" v-if="showRtuInfo">{{$t('editor')}}</rtu-form>
 		</Modal>
 		<Modal :title="copyRtuTitle" v-model="showCopyform" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>

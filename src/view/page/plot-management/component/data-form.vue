@@ -12,12 +12,12 @@
 			</FormItem>
 
 			<FormItem label="农场地理坐标" prop="farmPathName">
-				<Input readonly v-model="dataForm.farmPathName" search enter-button="选择" placeholder="请选择农场地理坐标" @on-search="getFarmPath"></Input>
+				<Input readonly v-model="dataForm.farmPathName" search :enter-button="$t('choose')" placeholder="请选择农场地理坐标" @on-search="getFarmPath"></Input>
 			</FormItem>
 
 
 			<FormItem label="所属组织" prop="belongOrgId">
-				<Input readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
+				<Input readonly v-model="belongOrgName" search :enter-button="$t('choose')" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
 			</FormItem>
 			<FormItem label="种植环境" prop="farmType">
 				<RadioGroup v-model="dataForm.farmType">
@@ -30,11 +30,11 @@
 				</Select>
 			</FormItem>
 			<FormItem label="默认视频" prop="defalutVideoId">
-				<Input readonly v-model="dataForm.defalutVideoName" search enter-button="选择" placeholder="请选择默认视频" @on-search="showVideoList"></Input>
+				<Input readonly v-model="dataForm.defalutVideoName" search :enter-button="$t('choose')" placeholder="请选择默认视频" @on-search="showVideoList"></Input>
 			</FormItem>
 		
 			<FormItem style="text-align: center;">
-				<Button @click="handleReset('dataForm')" style="margin-right: 8px">重置</Button>
+				<Button @click="handleReset('dataForm')" style="margin-right: 8px">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('dataForm')">
 					<slot></slot>
 				</Button>
@@ -58,7 +58,7 @@
 				<div style="overflow: hidden;text-align: left;">
 					<span>选择位置:{{markerName}}</span>
 					<Button @click="changeFarmPath" type="primary" style="float: right;">
-						确定
+						{{$t('ok')}}
 					</Button>
 				</div>
 
@@ -70,7 +70,7 @@
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
 			<div slot="footer">
-				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+				<Button type="primary" size="large" @click="belongOrgOk">{{$t('ok')}}</Button>
 			</div>
 		</Modal>
 		

@@ -1,6 +1,6 @@
 <template>
 	<!-- <div>添加告警</div> -->
-	<warn-from class="addWarnStyle">添加</warn-from>
+	<warn-from class="addWarnStyle">{{$t('add')}}</warn-from>
 </template>
 
 <script>

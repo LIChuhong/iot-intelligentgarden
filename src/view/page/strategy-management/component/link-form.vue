@@ -18,7 +18,7 @@
 				<span>{{linkForm.linkageParameterName}}</span>
 				<Cascader style="display:inline-block;margin-left: 1.25rem;" :data="rtuTypeList" :load-data="getRtuTypeParamList"
 				 @on-change="handleChange">
-					<a href="javascript:void(0)">选择</a>
+					<a href="javascript:void(0)">{{$t('choose')}}</a>
 				</Cascader>
 				<!-- {{linkForm.linkageParameterId}} -->
 			</FormItem>
@@ -39,7 +39,7 @@
 			</FormItem>
 			<FormItem label="联动设备编号" prop="linkageRtuNumber">
 				<Input type="number" v-model="linkForm.linkageRtuNumber" placeholder="请输入联动设备编号" :search="linkForm.linkageType == 2 || linkForm.linkageType == 3"
-				 enter-button="设置" @on-search="getLinkageParamList">
+				 :enter-button="$t('set_up')" @on-search="getLinkageParamList">
 				</Input>
 			</FormItem>
 			<FormItem v-show="linkForm.linkageType == 2" label="监测次数" prop="totalCount">
@@ -48,7 +48,7 @@
 			</FormItem>
 
 			<FormItem style="text-align:center;">
-				<Button @click="handleReset('linkForm')" style="margin-right:0.625rem">重置</Button>
+				<Button @click="handleReset('linkForm')" style="margin-right:0.625rem">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('linkForm')">
 					<slot></slot>
 				</Button>

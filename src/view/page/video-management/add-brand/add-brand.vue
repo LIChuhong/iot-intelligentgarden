@@ -1,5 +1,5 @@
 <template>
-	<brand-form style="width: 50%;margin:  0 auto;">添加</brand-form>
+	<brand-form style="width: 50%;margin:  0 auto;">{{$t('add')}}</brand-form>
 </template>
 
 <script>

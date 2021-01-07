@@ -11,18 +11,18 @@
 
 				<div v-if="$store.state.app.iotInterFace == 0">
 					<Poptip :transfer="true" placement="right" confirm title="确定取消当前策略吗?" @on-ok="cancelSwitchsStrategyMethod(row)">
-						<Button type="text" size="small">取消</Button>
+						<Button type="text" size="small">{{$t('cancel')}}</Button>
 					</Poptip>
 					<Poptip :transfer="true" style="margin:0 8px" placement="right" confirm  @on-ok="setControlStrategyMethod(row,abnormal)">
 						<template slot="title">
 							<Checkbox v-model="abnormal">异常立刻结束</Checkbox>
 						</template>
-						<Button type="text" size="small">启动</Button>
+						<Button type="text" size="small">{{$t('start')}}</Button>
 					</Poptip>
 
-					<Button icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">编辑</Button>
+					<Button icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">{{$t('editor')}}</Button>
 					<Poptip :transfer="true" confirm title="你确定删除该策略吗?" @on-ok="del(row,index)">
-						<Button icon="md-trash" type="error" size="small">删除</Button>
+						<Button icon="md-trash" type="error" size="small">{{$t('delete')}}</Button>
 					</Poptip>
 				</div>
 				<div v-else style="padding: 0.3125rem 0;">
@@ -32,14 +32,14 @@
 					</Poptip>
 					<div style="margin: 0.3125rem 0;">
 						<Poptip :transfer="true" placement="right" confirm title="确定取消当前策略吗?" @on-ok="cancelSwitchsStrategyMethod(row)">
-							<Button type="text" size="small">取消</Button>
+							<Button type="text" size="small">{{$t('cancel')}}</Button>
 						</Poptip>
 					</div>
 					<Poptip :transfer="true" placement="right" confirm @on-ok="setControlStrategyMethod(row,abnormal)">
 						<template slot="title">
 							<Checkbox v-model="abnormal">异常立刻结束</Checkbox>
 						</template>
-						<Button type="text" size="small">启动</Button>
+						<Button type="text" size="small">{{$t('start')}}</Button>
 					</Poptip>
 
 				</div>
@@ -48,12 +48,12 @@
 
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑策略" v-model="showStrategyInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<strategy-form :strategy-id="strategyId" v-if="showStrategyInfo">编辑</strategy-form>
+			<strategy-form :strategy-id="strategyId" v-if="showStrategyInfo">{{$t('editor')}}</strategy-form>
 		</Modal>
 	</div>
 </template>

@@ -6,18 +6,18 @@
 		<Table size="small" border :columns="warnListColumns" :data="warnListData" :loading="tableLoading">
 
 			<template slot-scope="{ row, index }" slot="action">
-				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" @click="show_warn_info(row,index)">编辑</Button>
+				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" @click="show_warn_info(row,index)">{{$t('editor')}}</Button>
 				<Button v-else icon="ios-create-outline" type="primary" size="small" @click="show_warn_info(row,index)"></Button>
 
 			</template>
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑信息" v-model="showWarnInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<warn-from :warn-info="warnInfo" v-if="showWarnInfo" @update-success = "updateSuccess">编辑</warn-from>
+			<warn-from :warn-info="warnInfo" v-if="showWarnInfo" @update-success = "updateSuccess">{{$t('editor')}}</warn-from>
 		</Modal>
 	</div>
 </template>

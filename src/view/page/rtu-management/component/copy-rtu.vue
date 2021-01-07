@@ -6,7 +6,7 @@
 			</Input>
 		</FormItem>
 		<FormItem style="text-align: center;">
-			<Button type="primary" @click="handleSubmit('rtuCopyModel')">复制</Button>
+			<Button type="primary" @click="handleSubmit('rtuCopyModel')">{{$t('copy')}}</Button>
 		</FormItem>
 	</Form>
 	<Spin fix v-show="showSpin" class="show-spin-style">

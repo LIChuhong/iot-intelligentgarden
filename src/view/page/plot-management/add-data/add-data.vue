@@ -1,5 +1,5 @@
 <template>
-	<data-form style="width: 60%;margin: 0 auto;">添加</data-form>
+	<data-form style="width: 60%;margin: 0 auto;">{{$t('add')}}</data-form>
 </template>
 
 <script>

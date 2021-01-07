@@ -1,5 +1,5 @@
 <template>
-	<timing-form style="width: 50%;margin:  0 auto;">添加</timing-form>
+	<timing-form style="width: 50%;margin:  0 auto;">{{$t('add')}}</timing-form>
 </template>
 
 <script>

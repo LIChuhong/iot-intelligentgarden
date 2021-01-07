@@ -6,12 +6,12 @@
 		<Table size="small" border :columns="warnListColumns" :data="warnListData" :loading="tableLoading">
 
 			<template slot-scope="{ row, index }" slot="action">
-				<Button type="primary" size="small" @click="changeWarn(row)">选择</Button>
+				<Button type="primary" size="small" @click="changeWarn(row)">{{$t('choose')}}</Button>
 			</template>
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 	</div>
 </template>

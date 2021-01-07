@@ -2,7 +2,7 @@
 	<div class="linkListStyle">
 		<div style="margin-bottom: 0.625rem;overflow: hidden;">
 			<span>已选择ID：</span>
-			<Button style="float: right;" type="primary"  @click="changeOk">确定</Button>
+			<Button style="float: right;" type="primary"  @click="changeOk">{{$t('ok')}}</Button>
 		</div>
 		<div>
 			<div v-for="(item,i) in bindingLinkList" :key="i" style="background: #c5c8ce;padding: 0.3125rem;border-radius:5%;margin:0 0 0.3125rem 0.3125rem;display: inline-block;">{{item.id}}
@@ -13,13 +13,13 @@
 
 			<template slot-scope="{ row, index }" slot="action">
 
-				<Button ghost type="primary" size="small"  @click="change(row)">选择</Button>
+				<Button ghost type="primary" size="small"  @click="change(row)">{{$t('editor')}}</Button>
 			</template>
 
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 	
 	</div>

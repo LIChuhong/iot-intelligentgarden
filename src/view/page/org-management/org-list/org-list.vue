@@ -8,7 +8,7 @@
 				<img :src="row.orgLogoUrl" :alt="row.orgName" width="100%" />
 			</template>
 			<template slot-scope="{ row, index }" slot="action">
-				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" style="margin-right: 15px" @click="show_org_info(row,index)">编辑</Button>
+				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" style="margin-right: 15px" @click="show_org_info(row,index)">{{$t('editor')}}</Button>
 				<Button v-else icon="ios-create-outline" type="primary" size="small" @click="show_org_info(row,index)"></Button>
 				<!-- <Button icon="ios-create-outline" :type="row.isEnableColor" size="small" style="margin-right: 10px" @click="setIsEnbleOrg(row,index)">{{row.isEnableTip}}</Button> -->
 				<i-switch v-if="$store.state.app.iotInterFace == 0" :loading="row.switchLoading" :disabled="row.buttonDis" v-model="row.isEnable" @on-change="setIsEnbleOrg(row)"></i-switch>
@@ -16,12 +16,12 @@
 			</template>
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑信息" v-model="showOrgInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<org-form :org-id="orgId" v-if="showOrgInfo">编辑</org-form>
+			<org-form :org-id="orgId" v-if="showOrgInfo">{{$t('editor')}}</org-form>
 		</Modal>
 	</div>
 </template>

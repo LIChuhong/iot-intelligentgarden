@@ -7,7 +7,7 @@
 
 			<template slot-scope="{ row, index }" slot="action">
 				<Button icon="ios-create-outline" type="primary" size="small" @click="editor(row)"></Button>
-				<Button type="text" size="small" @click="showWarnRtu(row,index)">详情</Button>
+				<Button type="text" size="small" @click="showWarnRtu(row,index)">{{$t('details')}}</Button>
 				
 				<Poptip placement="left" :transfer="true" confirm title="你确定删除该设备关联吗?" @on-ok="del(row,index)">
 				<Button icon="md-trash" type="error" size="small" ></Button>
@@ -15,8 +15,8 @@
 			</template>
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="详情信息" v-model="showWRdetails" footer-hide width="90">
 			<Icon slot="close" type="md-close"  size="30"/>
@@ -24,7 +24,7 @@
 		</Modal>
 		<Modal title="编辑设备关联" v-model="showRtuWarn" footer-hide >
 			<Icon slot="close" type="md-close"  size="30"/>
-			<param-form v-if="showRtuWarn" :rtuNumber = "rtuNumber">编辑</param-form>
+			<param-form v-if="showRtuWarn" :rtuNumber = "rtuNumber">{{$t('editor')}}</param-form>
 		</Modal>
 	</div>
 </template>

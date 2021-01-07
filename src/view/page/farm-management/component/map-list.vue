@@ -3,11 +3,11 @@
 		<Table size="small" border :columns="mapListColumns" :data="mapListData" :loading="tableLoading">
 
 			<template slot-scope="{ row, index }" slot="action">
-				<Button icon="ios-eye" type="success" size="small" style="margin-right: 15px" @click="getMapInfo(row,'check')">查看</Button>
+				<Button icon="ios-eye" type="success" size="small" style="margin-right: 15px" @click="getMapInfo(row,'check')">{{$t('view')}}</Button>
 				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" style="margin-right: 15px"
-				 @click="getMapInfo(row,'editor')">编辑</Button>
+				 @click="getMapInfo(row,'editor')">{{$t('editor')}}</Button>
 				<Poptip :transfer="true" confirm title="你确定删除该策略吗?" @on-ok="del(row,index)">
-					<Button icon="ios-trash" type="error" size="small">删除</Button>
+					<Button icon="ios-trash" type="error" size="small">{{$t('delete')}}</Button>
 				</Poptip>
 			</template>
 		</Table>

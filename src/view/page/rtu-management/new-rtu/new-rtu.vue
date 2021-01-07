@@ -1,6 +1,6 @@
 <template>
 	<div style="width: 50%;margin: 0 auto;">
-		<rtu-form>添加</rtu-form>
+		<rtu-form>{{$t('add')}}</rtu-form>
 	</div>
 </template>
 

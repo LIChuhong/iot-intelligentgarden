@@ -6,7 +6,7 @@
 		</p>
 		<div v-show="appText =='修改'">
 		<p class="appStyle"><span>AppKey：{{appCheck.appKey}}</span></p>
-		<p class="appStyle"><span>AppSecret：{{appCheck.appSecret}}</span> <Button style="margin-left: 24px;" type="primary" @click="getNewAppSecretMethed">重置</Button></p>
+		<p class="appStyle"><span>AppSecret：{{appCheck.appSecret}}</span> <Button style="margin-left: 24px;" type="primary" @click="getNewAppSecretMethed">{{$t('reset')}}</Button></p>
 		<p class="appStyle"><span>创建时间：{{appCheck.createTime}}</span></p>
 		<p class="appStyle"><span>更新时间：{{appCheck.updateTime}}</span></p>
 		<p class="appStyle"><span>启禁用：<Checkbox v-model="appCheck.enable"></Checkbox></span></p>

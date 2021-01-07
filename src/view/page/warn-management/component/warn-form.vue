@@ -20,7 +20,7 @@
 			</FormItem>
 
 			<FormItem style="text-align: center;">
-				<Button @click="handleReset('warnForm')" style="margin-right: 8px">重置</Button>
+				<Button @click="handleReset('warnForm')" style="margin-right: 8px">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('warnForm')">
 					<slot></slot>
 				</Button>

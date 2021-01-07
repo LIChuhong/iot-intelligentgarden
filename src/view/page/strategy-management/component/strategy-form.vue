@@ -6,7 +6,7 @@
 				<Input type="text" :maxlength="100" v-model="strategyForm.strategyName" placeholder="请输入策略名称"></Input>
 			</FormItem>
 			<FormItem label="所属组织" prop="belongOrgId">
-				<Input readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
+				<Input readonly v-model="belongOrgName" search :enter-button="$t('choose')" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
 			</FormItem>
 			<FormItem label="异常马上结束" prop="isMustAllPass">
 				<Checkbox v-model="strategyForm.isMustAllPass"></Checkbox>
@@ -54,7 +54,7 @@
 				</FormItem>
 			</div>
 			<FormItem style="text-align: center;">
-				<Button @click="handleReset('strategyForm')" style="margin-right: 8px">重置</Button>
+				<Button @click="handleReset('strategyForm')" style="margin-right: 8px">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('strategyForm')">
 					<slot></slot>
 				</Button>
@@ -67,7 +67,7 @@
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
 			<div slot="footer">
-				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+				<Button type="primary" size="large" @click="belongOrgOk">{{$t('ok')}}</Button>
 			</div>
 		</Modal>
 		<Modal title="选择操控设备列表" v-model="showRtuModal" footer-hide>

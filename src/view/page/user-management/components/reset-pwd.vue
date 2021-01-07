@@ -9,8 +9,8 @@
 
 		<FormItem>
 			
-			<Button @click="handleReset('pwdModel')">重置</Button>
-			<Button type="primary" @click="handleSubmit('pwdModel')" style="margin-left: 8px">修改</Button>
+			<Button @click="handleReset('pwdModel')">{{$t('reset')}}</Button>
+			<Button type="primary" @click="handleSubmit('pwdModel')" style="margin-left: 8px">{{$t('change')}}</Button>
 
 		</FormItem>
 

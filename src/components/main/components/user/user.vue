@@ -7,10 +7,10 @@
       <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
         <DropdownItem name="message">
-					 <Badge status="error" v-show="!!messageUnreadCount == true"/>消息中心
+					 <Badge status="error" v-show="!!messageUnreadCount == true"/>{{$t('news')+$t('center')}}
           <!-- <Badge :dot="!!messageUnreadCount">消息中心</Badge> -->
         </DropdownItem>
-        <DropdownItem name="logout">退出登录</DropdownItem>
+        <DropdownItem name="logout">{{$t('LogOut')}}</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   </div>

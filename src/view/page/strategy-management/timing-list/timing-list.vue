@@ -15,9 +15,9 @@
 
 			<template slot-scope="{ row, index }" slot="action">
 				<!-- <Button type="text" size="small" style="margin-right: 8px" @click="editor(row)">详情</Button> -->
-				<Button icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">编辑</Button>
+				<Button icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">{{$t('editor')}}</Button>
 				<Poptip :transfer="true" confirm title="你确定删除该定时吗?" @on-ok="del(row,index)">
-					<Button icon="md-trash" type="error" size="small" style="margin-right: 8px">删除</Button>
+					<Button icon="md-trash" type="error" size="small" style="margin-right: 8px">{{$t('delete')}}</Button>
 				</Poptip>
 				<i-switch :loading="row.switchLoading" v-model="row.enable" @on-change="setIsEnbleTiming(row)"></i-switch>
 
@@ -25,12 +25,12 @@
 
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑定时" v-model="showTimingInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<timing-form :timing-id="timingId" v-if="showTimingInfo">编辑</timing-form>
+			<timing-form :timing-id="timingId" v-if="showTimingInfo">{{$t('editor')}}</timing-form>
 		</Modal>
 	</div>
 </template>

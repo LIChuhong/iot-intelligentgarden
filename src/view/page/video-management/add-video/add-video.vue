@@ -1,5 +1,5 @@
 <template>
-	<video-form style="width: 50%;margin:  0 auto;">添加</video-form>
+	<video-form style="width: 50%;margin:  0 auto;">{{$t('add')}}</video-form>
 </template>
 
 <script>

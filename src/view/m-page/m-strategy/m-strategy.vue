@@ -124,7 +124,7 @@
 			},
 			editorTiming(row) {
 				this.timingId = row.key
-				this.timingText = '编辑'
+				this.timingText = this.$t('editor')
 				this.showTimingInfo = true
 			},
 			delTiming(row, index) {
@@ -176,7 +176,7 @@
 			addTiming() {
 				// alert(1)
 				this.timingId = null
-				this.timingText = '添加'
+				this.timingText = this.$t('add')
 				this.showTimingInfo = true
 
 			},

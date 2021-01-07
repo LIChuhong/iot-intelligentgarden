@@ -28,15 +28,15 @@
 						<Icon type="md-close" style="margin-left: 0.3125rem;cursor:pointer;" @click="delRtu(index)" /></span>
 
 				</div>
-				<Button size="small" type="primary" ghost @click="addrtuList" icon="md-add">添加设备</Button>
+				<Button size="small" type="primary" ghost @click="addrtuList" icon="md-add">{{$t('add')+$t('rtu')}}</Button>
 			</FormItem>
 			<FormItem label="所属组织" prop="belongOrgId">
-				<Input readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
+				<Input readonly v-model="belongOrgName" search :enter-button="$t('choose')" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
 			</FormItem>
 
 
 			<FormItem style="text-align: center;">
-				<Button @click="handleReset('plotForm')" style="margin-right: 8px">重置</Button>
+				<Button @click="handleReset('plotForm')" style="margin-right: 8px">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('plotForm')">
 					<slot></slot>
 				</Button>
@@ -49,7 +49,7 @@
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
 			<div slot="footer">
-				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+				<Button type="primary" size="large" @click="belongOrgOk">{{$t('ok')}}</Button>
 			</div>
 		</Modal>
 

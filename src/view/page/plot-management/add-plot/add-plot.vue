@@ -1,6 +1,6 @@
 <template>
 	
-	<plot-form class="plotStyle">添加</plot-form>
+	<plot-form class="plotStyle">{{$t('add')}}</plot-form>
 	
 </template>
 

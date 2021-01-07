@@ -19,7 +19,8 @@
 			</FormItem>
 			<FormItem label="设备版本" prop="rtuVersion">
 				<Input :disabled="disEditor" type="number" v-model="rtuForm.rtuVersion" placeholder="请输入设备版本"></Input>
-			</FormItem>
+			</FormItem> 
+			
 			<FormItem label="生产日期" prop="makeDate">
 				<DatePicker :disabled="disEditor" v-model="rtuForm.makeDate" type="date" :editable="false" placeholder="请选择生产日期"
 				 format="yyyy-MM-dd" style="width: 200px"></DatePicker>
@@ -42,16 +43,16 @@
 			</FormItem>
 			
 			<FormItem label="所属组织" prop="belongOrgId">
-				<Input readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
+				<Input readonly v-model="belongOrgName" search :enter-button="$t('choose')" placeholder="请选择所属组织" @on-search="showBelongOrgList"></Input>
 			</FormItem>
 			<FormItem label="关联视频" prop="videoId">
-				<Input readonly v-model="rtuForm.videoName" search enter-button="选择" placeholder="请选择关联视频" @on-search="showVideoList"></Input>
+				<Input readonly v-model="rtuForm.videoName" search :enter-button="$t('choose')" placeholder="请选择关联视频" @on-search="showVideoList"></Input>
 			</FormItem>
 			<!-- <FormItem label="设备描述" prop="rtuDesc">
 				<Input maxlength="500" v-model="rtuForm.rtuDesc" type="textarea" :rows="5" placeholder="请输入设备描述"></Input>
 			</FormItem> -->
 			<FormItem style="text-align: center;">
-				<Button @click="handleReset('rtuForm')" style="margin-right: 8px">重置</Button>
+				<Button @click="handleReset('rtuForm')" style="margin-right: 8px">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('rtuForm')">
 					<slot></slot>
 				</Button>
@@ -65,7 +66,7 @@
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
 			<div slot="footer">
-				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+				<Button type="primary" size="large" @click="belongOrgOk">{{$t('ok')}}</Button>
 			</div>
 		</Modal>
 

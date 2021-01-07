@@ -1,5 +1,5 @@
 <template>
-	<strategy-form class="strategyStyle">添加</strategy-form>
+	<strategy-form class="strategyStyle">{{$t('add')}}</strategy-form>
 </template>
 
 <script>

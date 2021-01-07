@@ -9,17 +9,17 @@
 				<img :src="row.cropImgUrl" style="height: 3.125rem;width: 3.125rem;" />
 			</template>
 			<template slot-scope="{ row, index }" slot="action">
-				<Button type="primary" size="small" @click="getDataMapInfo(row)">编辑</Button>
+				<Button type="primary" size="small" @click="getDataMapInfo(row)">{{$t('editor')}}</Button>
 			</template>
 
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑数据画面" v-model="showDataMapInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<data-form :data-map-id="dataMapId" v-if="showDataMapInfo">编辑</data-form>
+			<data-form :data-map-id="dataMapId" v-if="showDataMapInfo">{{$t('editor')}}</data-form>
 		</Modal>
 		
 	</div>

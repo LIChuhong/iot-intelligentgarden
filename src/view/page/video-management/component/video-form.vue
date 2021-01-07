@@ -19,7 +19,7 @@
 				</RadioGroup>
 			</FormItem>
 			<FormItem label="所属品牌" prop="brandTag">
-				<Input readonly v-model="videoForm.brandTag" search enter-button="选择" placeholder="请选择所属品牌标识" @on-search="showBrandList"></Input>
+				<Input readonly v-model="videoForm.brandTag" search :enter-button="$t('choose')" placeholder="请选择所属品牌标识" @on-search="showBrandList"></Input>
 
 			</FormItem>
 			<FormItem v-show="videoForm.brandTag == 'YSY' || videoForm.brandTag == 'LCY'" label="设备信息" prop="videoDeviceInfo">
@@ -43,7 +43,7 @@
 				<Input maxlength="255" v-model="videoForm.videoDesc" type="textarea" :rows="5" placeholder="请输入设备描述"></Input>
 			</FormItem>
 			<FormItem style="text-align:center;">
-				<Button @click="handleReset('videoForm')" style="margin-right:0.625rem">重置</Button>
+				<Button @click="handleReset('videoForm')" style="margin-right:0.625rem">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('videoForm')">
 					<slot></slot>
 				</Button>

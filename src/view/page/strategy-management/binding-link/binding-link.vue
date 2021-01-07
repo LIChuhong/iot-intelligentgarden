@@ -22,7 +22,7 @@
 
 				<template slot-scope="{ row, index }" slot="action">
 
-					<Button v-if="$store.state.app.iotInterFace == 0" icon="md-trash" type="error" size="small" @click="delLink(row,index)">删除</Button>
+					<Button v-if="$store.state.app.iotInterFace == 0" icon="md-trash" type="error" size="small" @click="delLink(row,index)">{{$t('delete')}}</Button>
 					<Button v-else icon="md-trash" type="error" size="small" @click="delLink(row,index)"></Button>
 				</template>
 

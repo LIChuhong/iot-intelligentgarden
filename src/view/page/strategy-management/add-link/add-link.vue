@@ -1,5 +1,5 @@
 <template>
-	<link-form class="linkFormStyle">添加</link-form>
+	<link-form class="linkFormStyle">{{$t('add')}}</link-form>
 </template>
 
 

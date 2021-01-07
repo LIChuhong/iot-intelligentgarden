@@ -20,12 +20,12 @@
 			</FormItem>
 
 			<FormItem label="所属组织" prop="belongOrgId">
-				<Input readonly v-model="belongOrgName" search enter-button="选择" placeholder="请选择所属组织"
+				<Input readonly v-model="belongOrgName" search :enter-button="$t('choose')" placeholder="请选择所属组织"
 				 @on-search="showBelongOrgList"></Input>
 
 			</FormItem>
 			<FormItem style="text-align:center;">
-				<Button @click="handleReset('brandForm')" style="margin-right:0.625rem">重置</Button>
+				<Button @click="handleReset('brandForm')" style="margin-right:0.625rem">{{$t('reset')}}</Button>
 				<Button type="primary" @click="handleSubmit('brandForm')">
 					<slot></slot>
 				</Button>
@@ -37,7 +37,7 @@
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
 			<div slot="footer">
-				<Button type="primary" size="large" @click="belongOrgOk">确定</Button>
+				<Button type="primary" size="large" @click="belongOrgOk">{{$t('ok')}}</Button>
 			</div>
 		</Modal>
 		<Spin fix v-show="showSpin">

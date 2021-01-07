@@ -1,5 +1,5 @@
 <template>
-	<param-form class="paramStyle"> 添加 </param-form>
+	<param-form class="paramStyle">{{$t('add')}} </param-form>
 	
 </template>
 

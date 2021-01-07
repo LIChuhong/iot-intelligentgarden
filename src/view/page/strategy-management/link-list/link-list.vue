@@ -15,19 +15,19 @@
 
 			<template slot-scope="{ row, index }" slot="action">
 
-				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">编辑</Button>
+				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)">{{$t('editor')}}</Button>
 				<Button v-else icon="ios-create-outline" type="primary" size="small" style="margin-right: 8px" @click="editor(row)"></Button>
 
 			</template>
 
 		</Table>
 		<div style="overflow: hidden;padding:0.625rem 0.625rem;">
-			<Button type="primary" ghost style="float: right;" @click="nextPage">下一页</Button>
-			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">上一页</Button>
+			<Button type="primary" ghost style="float: right;" @click="nextPage">{{$t('next_page')}}</Button>
+			<Button type="primary" ghost style="float: right;margin-right: 0.625rem;" @click="prevPage">{{$t('previous_page')}}</Button>
 		</div>
 		<Modal title="编辑联动" v-model="showLinkInfo" footer-hide>
 			<Icon slot="close" type="md-close"  size="30"/>
-			<link-form :link-id="linkId" v-if="showLinkInfo">编辑</link-form>
+			<link-form :link-id="linkId" v-if="showLinkInfo">{{$t('editor')}}</link-form>
 		</Modal>
 	</div>
 </template>
