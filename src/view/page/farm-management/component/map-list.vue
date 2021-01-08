@@ -6,7 +6,7 @@
 				<Button icon="ios-eye" type="success" size="small" style="margin-right: 15px" @click="getMapInfo(row,'check')">{{$t('view')}}</Button>
 				<Button v-if="$store.state.app.iotInterFace == 0" icon="ios-create-outline" type="primary" size="small" style="margin-right: 15px"
 				 @click="getMapInfo(row,'editor')">{{$t('editor')}}</Button>
-				<Poptip :transfer="true" confirm title="你确定删除该策略吗?" @on-ok="del(row,index)">
+				<Poptip :transfer="true" confirm title="你确定删除该地图吗?" @on-ok="del(row,index)">
 					<Button icon="ios-trash" type="error" size="small">{{$t('delete')}}</Button>
 				</Poptip>
 			</template>
