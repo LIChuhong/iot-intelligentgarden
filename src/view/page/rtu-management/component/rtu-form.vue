@@ -372,17 +372,22 @@
 									this.rtuForm.videoName = iaRtu.video.videoName
 								}
 								this.belongOrgName = iaRtu.orgName
-								const rtuTypeList = this.rtuTypeList
-								for (var i in rtuTypeList) {
-									if (iaRtu.rtuTypeId == rtuTypeList[i].id) {
-										if (rtuTypeList[i].rtuCharacteristic == 2) {
-											this.showlora = true
-										} else {
-											this.showlora = false
-										}
-										break;
-									}
+								if(iaRtu.rtuCharacteristic == 2){
+									this.showlora = true
+								}else{
+									this.showlora = false
 								}
+								// const rtuTypeList = this.rtuTypeList
+								// for (var i in rtuTypeList) {
+								// 	if (iaRtu.rtuTypeId == rtuTypeList[i].id) {
+								// 		if (rtuTypeList[i].rtuCharacteristic == 2) {
+								// 			this.showlora = true
+								// 		} else {
+								// 			this.showlora = false
+								// 		}
+								// 		break;
+								// 	}
+								// }
 								// console.log(this.rtuForm)
 							}
 						} else {
