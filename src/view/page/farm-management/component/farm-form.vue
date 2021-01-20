@@ -3,7 +3,8 @@
 
 		<div ref="map" style="width:80%;float: left;overflow:hidden;background: #808695;height:100%;display: flex;justify-content:center;position: relative;">
 			<div v-show="showMap" id="mapBgDiv" ref="mapBgDiv" style="position: absolute;height: 100%;overflow:hidden;background: #00BFFF;width: 100%;">
-				<img id="mapBgImg" ref="mapBgImg" :src="mapBgImgUrl" style="z-index: 1;height: 100%;width: 100%;" draggable="false" :class="{ widthActive:value }" />
+				<img id="mapBgImg" ref="mapBgImg" :src="mapBgImgUrl" style="z-index: 1;height: 100%;width: 100%;" draggable="false"
+				 :class="{ widthActive:value }" />
 				<div v-for="item in rtuImgList" :key="item.rtuNumber" v-drag class="drag" :style="{top:item.heightScale+'%',left:item.widthScale+'%'}">
 					<Poptip transfer :title="item.rtuNumber">
 						<div slot="content">
@@ -47,7 +48,7 @@
 
 				<Tabs type="card">
 					<TabPane label="设备">
-						<Input search enter-button placeholder="请输入名称关键字..." size="small" />
+						<Input @on-search="findRtuList" search enter-button placeholder="请输入名称关键字..." size="small" />
 						<Tree @on-check-change="checkRtu" :data="rtuListData" show-checkbox multiple></Tree>
 						<div v-show="showAddRtu" style="text-align: center;">
 							<a @click="getRtuList(rtuImgList)">加载更多...</a>
@@ -93,9 +94,9 @@
 				<Icon @click.native="handleFullscreen" :type="value ? 'md-contract' : 'md-expand'" :size="23"></Icon>
 			</Tooltip>
 		</div>
-		
+
 		<Modal :title="'当前选择:'+ belongOrgTitle" v-model="showBelongOrg">
-			<Icon slot="close" type="md-close"  size="30"/>
+			<Icon slot="close" type="md-close" size="30" />
 			<div class="tree-style">
 				<org-tree v-if="showBelongOrg" @getBelongOrgInfo="showBelongOrgInfo" :orgTypeId="null"></org-tree>
 			</div>
@@ -123,7 +124,7 @@
 		getAllVideoList,
 	} from '@/api/video.js'
 	export default {
-		components:{
+		components: {
 			OrgTree
 		},
 		props: {
@@ -134,7 +135,7 @@
 		},
 		data() {
 			return {
-				belongOrgId:null,
+				belongOrgId: null,
 				showBelongOrg: false,
 				belongOrgTitle: '',
 				belongOrgInfo: '', //所属组织信息
@@ -162,7 +163,10 @@
 				mapName: null,
 				rtuVideoList: [],
 				shufflingRtuList: [],
-				refreshDataList: []
+				refreshDataList: [],
+				iaRtuList:[],
+				rvList:[]
+				
 
 			}
 		},
@@ -189,10 +193,16 @@
 
 		},
 		methods: {
+			findRtuList(searchKey) {
+				this.searchKey = searchKey
+				this.maxId = 0
+				this.rtuListData = []
+				this.getRtuList(this.iaRtuList, this.rvList)
+			},
 			showBelongOrgList() { //显示所属组织列表
 				this.belongOrgTitle = this.belongOrgName
 				this.showBelongOrg = true
-			
+
 			},
 			showBelongOrgInfo(data) { //显示所选所属组织信息
 				this.belongOrgInfo = data
@@ -219,7 +229,7 @@
 			},
 			saveMap() {
 				// console.log(this.rtuImgList)
-				if(this.belongOrgId == null || this.belongOrgId == ''){
+				if (this.belongOrgId == null || this.belongOrgId == '') {
 					alert('请先选择地图所属组织再进行保存')
 					return
 				}
@@ -358,7 +368,7 @@
 			getRtuList(list, rvList) {
 				// console.log(list)
 				var orgId = this.$store.state.user.userInfo.orgId
-				getRtuList(this.keyField, this.searchKey,orgId, this.maxId, this.pageSize).then(res => {
+				getRtuList(this.keyField, this.searchKey, orgId, this.maxId, this.pageSize).then(res => {
 					const data = res.data
 					if (data.success == 1) {
 						data.iaRtuList.map(item => {
@@ -470,11 +480,13 @@
 							this.belongOrgName = map.orgName
 							// this.checkRtuData = iaRtuList
 							// console.log(this.rtuImgList)
-							for(var i= 0;i<iaRtuList.length;i++){
+							for (var i = 0; i < iaRtuList.length; i++) {
 								iaRtuList[i].checked = true
 								this.rtuImgList.push(iaRtuList[i])
 							}
-							this.getRtuList(iaRtuList, map.workingRtuVideoList)
+							this.iaRtuList = iaRtuList
+							this.rvList = map.workingRtuVideoList
+							this.getRtuList(this.iaRtuList, this.rvList)
 							this.getVideoList(map.videoPostionList)
 
 
