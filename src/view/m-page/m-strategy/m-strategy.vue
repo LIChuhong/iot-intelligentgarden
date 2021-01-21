@@ -5,8 +5,8 @@
 				<span class="demo-tabs-style2">
 				<Button  @click="refresh" icon="md-refresh" style="margin-right: 0.625rem;"></Button>
 				</span>
-				<Button v-show="tabsName == '添加定时'" @click="addTiming" type="primary" icon="md-add">{{tabsName}}</Button>
-				<Button v-show="tabsName == '添加策略'" @click="addStrategy" type="primary" icon="md-add">{{tabsName}}</Button>
+				<Button v-show="tabsName == '添加定时'" @click="addTiming" type="primary" icon="md-add"></Button>
+				<Button v-show="tabsName == '添加策略'" @click="addStrategy" type="primary" icon="md-add"></Button>
 			</div>
 			<TabPane label="定时" name="添加定时" :style="{height:tabHeight,overflow:'auto'}">
 				<List item-layout="vertical">
